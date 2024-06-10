@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb:FormBuilder,private _login:LoginServiceService,private route:Router){}
 
   ngOnInit(): void {
+    sessionStorage.setItem('isAdmin',"false")
     this.loginForm=this.fb.group({
       email:['',[Validators.required,Validators.email]],
       password:['',[Validators.required, Validators.minLength(6)]]
@@ -33,6 +34,8 @@ export class LoginComponent implements OnInit {
   login(){
     this.email=this.loginForm.value.email
     this.password=this.loginForm.value.password
+    
+    
     if(this._login.login(this.email,this.password)){
       console.log('hello')
       this.route.navigate(['/admin']);

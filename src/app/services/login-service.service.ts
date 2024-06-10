@@ -9,10 +9,10 @@ export class LoginServiceService {
   constructor() { }
   login(email:string,password:string){
     if(email==="admin@gmail.com" && password==="admin123"){
-      sessionStorage.setItem(this.isAdmin,"true")
+      sessionStorage.setItem('isAdmin',"true")
       return true
     }else{
-      sessionStorage.setItem(this.isAdmin,"false")
+      sessionStorage.setItem('isAdmin',"false")
       return false
     }
     

@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
+import { DashbordComponent } from '../dashbord/dashbord.component';
 
 
 @NgModule({
   declarations: [
-    AdminComponent
+    AdminComponent,
+    DashbordComponent
   ],
   imports: [
     CommonModule,

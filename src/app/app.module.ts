@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { PagenotFoundComponent } from './pagenot-found/pagenot-found.component';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { PagenotFoundComponent } from './pagenot-found/pagenot-found.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AdminModule
   ],
   providers: [],
   bootstrap: [AppComponent]

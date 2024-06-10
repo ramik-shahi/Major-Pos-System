@@ -1,3 +1,4 @@
+<<<<<<< master
 <html>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +27,21 @@
                     <div *ngIf="loginForm.get('email')?.errors?.['required']" class='error'>Email is required</div>
                     <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email address</div>
                 </div>
+=======
+<div>
+    Login
+</div>
+
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="div">
+        <label for ="email">Email:</label>
+        <input id="email" formControlName="email">
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
+            <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email address</div>
+          </div>
+    </div>
+>>>>>>> master
 
 
                 

@@ -1,3 +1,33 @@
+<<<<<<< master
+<html>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+  <body>
+    <div class="container">
+      <div class="left-side">
+        <div class="overlay">
+          <h1>FAST AND EFFICIENT POS</h1>
+          <h2>SOLUTION</h2>
+      </div>
+      </div>
+      <div class="right-side">
+        <div class="login-box">
+          <div class="logo">
+            <img src="assets/login2.png" alt="POS Logo">
+        </div>
+          <h3>Login</h3>
+          <p>Please enter your credentials to login into system.</p> 
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <label for ="email">Email:</label>
+                <input id="email" formControlName="email">
+                <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+                    <div *ngIf="loginForm.get('email')?.errors?.['required']" class='error'>Email is required</div>
+                    <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email address</div>
+                </div>
+=======
 <div>
     Login
 </div>
@@ -11,18 +41,34 @@
             <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email address</div>
           </div>
     </div>
+>>>>>>> master
 
-  <div>
-    <label for="password">Password:</label>
-    <input id="password" type="password" formControlName="password">
-    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-      <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</div>
+
+                
+            <label for="password">Password:</label>
+            <input id="password" type="password" formControlName="password">
+            <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+              <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</div>
+              
+            </div>
+        
+          <button type="submit" [disabled]="loginForm.invalid">Login</button>
+        
+        
+        </form>
+        </div>
+        
       
+      </div>
+    
     </div>
-  </div>
+  
+  
+  </body>
+  
 
-  <button type="submit" [disabled]="loginForm.invalid">Login</button>
+</html>
 
 
-</form>
+
 

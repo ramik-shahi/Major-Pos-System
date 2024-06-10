@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit():void{
     const email=this.loginForm.value.email
-    console.log(this.loginForm.value.email);
+    console.log('hello');
 
   }
   login(){

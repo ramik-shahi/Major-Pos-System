@@ -6,7 +6,13 @@ import { PagenotFoundComponent } from './pagenot-found/pagenot-found.component';
 const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'', redirectTo:'/login',pathMatch:'full'},
-  { path: '**', component: PagenotFoundComponent }
+  {path:'admin',
+    loadChildren:()=>
+      import('./admin/admin.module').then(m=>m.AdminModule)
+  },
+  
+  { path: '**', component: PagenotFoundComponent },
+
 ];
 
 @NgModule({

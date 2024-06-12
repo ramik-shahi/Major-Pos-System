@@ -1,0 +1,106 @@
+body {
+  background-color: #f0f0f0; /* Light gray background */
+  margin: 0;
+  font-family: Arial, sans-serif; /* Default font */
+  width: 100%;
+}
+
+.row-container {
+  display: flex; /* Enables Flexbox */
+  flex-direction: row; /* Aligns children in a row */
+  justify-content: space-between; /* Distributes space between items */
+  background-color: #f0f0f0; /* Optional: background color for the container */
+  padding: 10px; /* Optional: padding for the container */
+  height: 17%;
+  margin-left: 18%;
+}
+
+.row-item {
+  background-color: #ffffff; /* Optional: background color for each item */
+  border: 1px solid #ccc; /* Optional: border for each item */
+  padding: 10px; /* Optional: padding for each item */
+  margin: 0 19px; /* Optional: margin between items */
+  flex: 1; /* Ensure each item takes up equal space */
+  text-align: center; /* Center-align text in each item */
+}
+
+.middle {
+  display: flex; /* Enables Flexbox */
+  flex-direction: row; /* Aligns children in a row */
+  justify-content: space-between; /* Distributes space between items */
+  background-color: #ffffff; /* Optional: background color for the container */
+  border: 1px solid #ccc;
+  /* Optional: padding for the container */
+  height: 35%;
+  width:58%;
+  margin-left:20%;
+  padding: 10px;
+  margin-bottom: 20px; 
+}
+
+.main-container {
+  display: flex;
+  height: 80% ;/* Full height of the viewport */
+  margin-left: 272px;
+  width: 80%;
+}
+
+.left-container {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  width: 97%; /* Width of the left container */
+  margin-right: 2%; /* Space between left and right container */
+}
+
+.top, .bottom {
+  flex: 1; /* Take up equal space */
+  background-color: #f0f0f0; /* Optional: background color */
+  border: 1px solid #ccc; /* Optional: border */
+  padding: 10px; /* Optional padding */
+  margin-bottom: 20px; /* Space between top and bottom containers */
+  margin-left: 26px;
+}
+
+.bottom {
+  margin-bottom: 0; /* Remove bottom margin for the last item */
+}
+
+.right {
+  width: 26%; /* Width of the right container */
+  background-color: #ffffff; /* Optional: background color */
+  border: 1px solid #ccc; /* Optional: border */
+  padding: 10px; /* Optional padding */
+  height: 60%;
+}
+
+@media screen and (max-width: 768px) {
+  .row-container {
+      margin-left: 0; /* Remove left margin on smaller screens */
+      justify-content: center; /* Center items on smaller screens */
+  }
+  .row-item {
+      margin: 0 10px; /* Reduce margin between items on smaller screens */
+  }
+  .middle {
+      width: 100%; /* Full width on smaller screens */
+      margin-left: 0; /* Remove left margin on smaller screens */
+  }
+  .main-container {
+      margin-left: 0; /* Remove left margin on smaller screens */
+      width: 100%; /* Full width on smaller screens */
+  }
+  .left-container {
+      width: 100%; /* Full width on smaller screens */
+      margin-right: 0; /* Remove right margin on smaller screens */
+  }
+  .top, .bottom {
+      margin-left: 0; /* Remove left margin on smaller screens */
+  }
+  .right {
+    width: 100%; /* Full width on smaller screens */
+    background-color: #ffffff; /* Optional: background color */
+    border: 1px solid #ccc; /* Optional: border */
+    padding: 10px; /* Optional padding */
+    margin: 0; /* Remove margin on smaller screens */
+  }
+}

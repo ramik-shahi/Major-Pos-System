@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashbord.component.css']
 })
 export class DashbordComponent {
+  pageTitle: string = 'Dashboard'; 
 
 }

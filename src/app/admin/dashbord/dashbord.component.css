@@ -12,7 +12,7 @@ body {
   background-color: #f0f0f0; /* Optional: background color for the container */
   padding: 10px; /* Optional: padding for the container */
   height: 17%;
-  margin-left: 18%;
+  
 }
 
 .row-item {
@@ -33,7 +33,7 @@ body {
   /* Optional: padding for the container */
   height: 35%;
   width:58%;
-  margin-left:20%;
+  
   padding: 10px;
   margin-bottom: 20px; 
 }
@@ -41,15 +41,16 @@ body {
 .main-container {
   display: flex;
   height: 80% ;/* Full height of the viewport */
-  margin-left: 272px;
-  width: 80%;
+  
+  
+  margin-top: 104px;
 }
 
 .left-container {
   display: flex;
   flex-direction: column; /* Stack items vertically */
-  width: 97%; /* Width of the left container */
-  margin-right: 2%; /* Space between left and right container */
+  width: 73%; /* Width of the left container */
+  margin:0px 3px; /* Space between left and right container */
 }
 
 .top, .bottom {
@@ -66,11 +67,22 @@ body {
 }
 
 .right {
-  width: 26%; /* Width of the right container */
+  width: 20%; /* Width of the right container */
   background-color: #ffffff; /* Optional: background color */
   border: 1px solid #ccc; /* Optional: border */
   padding: 10px; /* Optional padding */
   height: 60%;
+  margin-left: 35px;
+}
+.nav {
+  background-color: #333; /* Dark background color */
+  color: white; /* Text color */
+  width: 20%; /* Width of the navigation bar */
+  min-width: 200px; /* Minimum width */
+  padding: 20px; /* Padding inside the nav bar */
+  box-sizing: border-box; /* Include padding in width calculation */
+  height: 100vh; /* Full height of the viewport */
+  
 }
 
 @media screen and (max-width: 768px) {

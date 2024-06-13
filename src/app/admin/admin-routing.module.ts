@@ -7,9 +7,9 @@ import { loginGuardGuard } from '../guard/login-guard.guard';
 const routes: Routes = [
   // { path: '', component: AdminComponent },
   // { path: 'dash', component: DashbordComponent },
-  {path:'',component:DashbordComponent ,   children:[
+  {path:'',component:AdminComponent ,   children:[
 
-    {path:'dash',component:DashbordComponent},
+    {path:'dashboard',component:DashbordComponent,data: { title: 'Dashboard' } },
     
 
 

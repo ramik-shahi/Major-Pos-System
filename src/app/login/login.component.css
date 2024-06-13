@@ -1,14 +1,13 @@
-
+/* General Reset and Flexbox Container Settings */
 body, html {
     margin: 0;
     padding: 0;
-    /* font-family: 'Inter', sans-serif; */
     height: 100%;
-    width:100%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-	background:yellow;
+    background: yellow;
 }
 
 .container {
@@ -16,14 +15,21 @@ body, html {
     width: 100%;
     height: 100%;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    flex-direction: row;
+}
+
+.left-side, .right-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
 .left-side {
-    flex: 1;
     background-image: url('src/assets/login1.png'); /* Replace with your image URL */
     background-size: cover;
     background-position: center;
-    position: relative;
 }
 
 .overlay {
@@ -38,6 +44,7 @@ body, html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 .overlay h1 {
@@ -52,12 +59,10 @@ body, html {
 }
 
 .right-side {
-    flex: 1;
     background-color: #f9f9f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-image: url('src/assets/login_right_side_bg.png');
+    background-size: cover;
+    background-position: center;
 }
 
 .login-box {
@@ -67,14 +72,13 @@ body, html {
 }
 
 .login-box .logo {
-    text-align: left; /* Changed from center to left */
+    text-align: left;
     margin-bottom: 20px; /* Adjust as needed */
 }
 
 .login-box .logo img {
     width: 100px;
     mix-blend-mode: multiply;
-    /* background-image: url('src/assets/login2.png'); */
 }
 
 .login-box h3 {
@@ -108,8 +112,9 @@ body, html {
 }
 
 div .error {
-    color:red;
+    color: red;
 }
+
 .remember-forgot {
     display: flex;
     justify-content: space-between;
@@ -133,4 +138,69 @@ div .error {
 
 .login-box button:hover {
     background-color: #0056b3;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-side, .right-side {
+        height: 63%;
+        width: 100%;
+    }
+
+    .login-box {
+        width: 90%;
+        max-width: 300px;
+    }
+
+    .overlay h1 {
+        font-size: 2em;
+    }
+
+    .overlay h2 {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .overlay h1 {
+        font-size: 1.5em;
+    }
+
+    .overlay h2 {
+        font-size: 2em;
+    }
+
+    .login-box {
+        width: 90%;
+        max-width: 250px;
+    }
+
+    .login-box .logo img {
+        width: 80px;
+    }
+
+    .login-box h3, .login-box p {
+        text-align: center;
+    }
+
+    .login-box form {
+        width: 100%;
+    }
+
+    .remember-forgot {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .remember-forgot a {
+        margin-top: 10px;
+    }
+
+    .login-box button {
+        width: 100%;
+    }
 }

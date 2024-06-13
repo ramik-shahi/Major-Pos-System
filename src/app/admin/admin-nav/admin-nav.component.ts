@@ -14,7 +14,7 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./admin-nav.component.css']
 })
 export class AdminNavComponent implements OnInit {
-   pageTitle: string = '';
+   pageTitle: string = 'Dashboard';
   constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
   ngOnInit(): void {
     this.router.events.pipe(

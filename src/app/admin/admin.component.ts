@@ -8,7 +8,7 @@ import { Route, Router } from '@angular/router';
 export class AdminComponent implements OnInit{
   constructor(private route:Router){}
   ngOnInit(): void {
-    this.route.navigate(['/admin/dashboard']);
+    
        
     
   }

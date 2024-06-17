@@ -17,11 +17,12 @@ export class LoginComponent implements OnInit {
   constructor(private fb:FormBuilder,private _login:LoginServiceService,private route:Router){}
 
   ngOnInit(): void {
-    sessionStorage.setItem('isAdmin',"false")
+   // sessionStorage.setItem('isAdmin',"false")
     this.loginForm=this.fb.group({
       email:['',[Validators.required,Validators.email]],
       password:['',[Validators.required, Validators.minLength(6)]]
     });
+    console.log(sessionStorage.getItem('isAdmin'))
 
     
   }
@@ -32,11 +33,13 @@ export class LoginComponent implements OnInit {
     this.password=this.loginForm.value.password
     
     
-    if(this._login.login(this.email,this.password)){
-      console.log('hello')
-      this.route.navigate(['/admin']);
+    // if(this._login.login(this.email,this.password)){
+    //   console.log('hello')
+    //   this.route.navigate(['/admin']);
        
-    }
+    // }
+
+    this._login.login(this.email,this.password)
   }
 
 }

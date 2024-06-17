@@ -1,0 +1,73 @@
+/* card.component.css */
+
+table.mat-elevation-z8 {
+  width: 100%;
+}
+
+.mat-column-order,
+.mat-column-cards {
+  padding: 16px; /* Add padding to the columns */
+  box-sizing: border-box;
+}
+
+.mat-column-order {
+  width: 20%;
+}
+
+.mat-column-cards {
+  width: 80%;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Adjust spacing between cards */
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: calc(25% - 16px); /* Adjust width to fit 4 cards per row */
+  box-sizing: border-box;
+  padding: 8px; /* Add padding inside each card */
+}
+
+.button-container {
+  margin-top: 8px; /* Adjust spacing between buttons and image */
+}
+.button-container button{
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  color: #fff;
+}
+
+.pending-button,
+.cancel-button {
+  color: white; /* Set button text color to white */
+}
+
+.pending-button {
+  background-color: green;
+}
+
+.cancel-button {
+  background-color: red;
+}
+
+.card-title{
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.dine-btn{
+  background-color: brown;
+  border: none;
+  color: #fff !important;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}

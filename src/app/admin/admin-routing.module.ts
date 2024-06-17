@@ -6,6 +6,7 @@ import { loginGuardGuard } from '../guard/login-guard.guard';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { MenuComponent } from './menu/menu.component';
 import { AddUserComponent } from './user-management/add-user/add-user.component';
+import { OrderComponent } from './order/order.component';
 
 const routes: Routes = [
   // { path: '', component: AdminComponent },
@@ -21,8 +22,11 @@ const routes: Routes = [
 
     {path:'menu',component:MenuComponent,data: { title: 'Menu' } },
 
-    
-    
+    {path:'order',component:OrderComponent,data: { title: 'Order' } },
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+
+
+
 
 
 

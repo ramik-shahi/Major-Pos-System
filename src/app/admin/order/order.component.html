@@ -1,0 +1,36 @@
+<table mat-table  [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Order Column -->
+  <ng-container matColumnDef="order" class="order-column">
+    <th mat-header-cell *matHeaderCellDef> Order </th>
+    <td mat-cell *matCellDef="let element" style="text-align: center;"> 
+      <div>Table no : 1</div>
+      <div>
+        <button mat-button class="dine-btn">Dine-in</button>
+      </div>
+      {{element.order}} 
+    </td>
+  </ng-container>
+
+  <!-- Cards Column -->
+  <ng-container matColumnDef="cards" class="cards-column">
+    <th mat-header-cell *matHeaderCellDef> Cards </th>
+    <td mat-cell *matCellDef="let element">
+      <div class="cards-container">
+        <mat-card class="card" *ngFor="let card of element.cards">
+          <img mat-card-image [src]="card.image" alt="{{card.title}}">
+          <mat-card-header>
+            <mat-card-title class="card-title">{{card.title}}</mat-card-title>
+          </mat-card-header>
+          <div class="button-container">
+            <button mat-button class="pending-button">Pending</button>
+            <button mat-button class="cancel-button">Cancel</button>
+          </div>
+        </mat-card>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

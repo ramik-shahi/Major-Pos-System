@@ -16,6 +16,7 @@ import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { UserManagementModule } from './user-management/user-management.module';
 import { OrderModule } from './order/order.module';
+import { MenuModule } from './menu/menu.module';
 
 
 
@@ -37,9 +38,8 @@ import { OrderModule } from './order/order.module';
     MatListModule,
     MatTableModule,
     OrderModule,
-
-    UserManagementModule
-
+    UserManagementModule,
+    MenuModule
   ]
 })
 export class AdminModule { }

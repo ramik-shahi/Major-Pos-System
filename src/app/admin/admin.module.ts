@@ -17,6 +17,7 @@ import { RouterModule } from '@angular/router';
 import { UserManagementModule } from './user-management/user-management.module';
 import { OrderModule } from './order/order.module';
 import { TableCheckoutModule } from './table-checkout/table-checkout.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -40,7 +41,8 @@ import { TableCheckoutModule } from './table-checkout/table-checkout.module';
     OrderModule,
 
     UserManagementModule,
-    TableCheckoutModule
+    TableCheckoutModule,
+    MatDialogModule
 
   ]
 })

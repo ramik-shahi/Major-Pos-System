@@ -1,9 +1,11 @@
 <!-- user-management.component.html -->
-<div>
+<div class="search-add-container">
   <mat-form-field appearance="fill">
     <mat-label>Search</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Search Employees">
   </mat-form-field>
+
+  <button mat-raised-button color="primary" class="add-button" (click)="openEditDialog()" >Add Employee</button>
 </div>
 
 

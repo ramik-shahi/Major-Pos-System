@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component,Inject  } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EmployeeForm } from '../../interface/employee.model';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-user',
@@ -10,7 +11,8 @@ import { EmployeeForm } from '../../interface/employee.model';
 export class AddUserComponent {
   positions = ['Manager', 'Developer', 'Designer', 'Analyst', 'Tester'];
   employeeForm: FormGroup;
-  constructor(private fb:FormBuilder){
+  constructor(private fb:FormBuilder,  public dialogRef: MatDialogRef<AddUserComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { id: number }){
     this.employeeForm=fb.group({
       name: [''],
       address: [''],
@@ -20,7 +22,7 @@ export class AddUserComponent {
       image:['null'],
       panNumber:[''],
       position:['']
-      
+
 
     });
 
@@ -38,6 +40,17 @@ export class AddUserComponent {
       });
     }
   }
+
+
+  saveChanges(): void {
+    // Logic to save changes (e.g., update employee details)
+    this.dialogRef.close();
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
+  }
+
 
 
 

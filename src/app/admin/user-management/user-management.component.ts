@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Employee, employees } from './user-datasource';
+import { MatDialog } from '@angular/material/dialog';
+import { AddUserComponent } from './add-user/add-user.component';
 
 @Component({
   selector: 'app-user-management',
@@ -18,6 +20,7 @@ export class UserManagementComponent implements AfterViewInit {
 
   dataSource = new MatTableDataSource<Employee>(employees);
   displayedColumns = ['id', 'name', 'panNumber', 'address', 'phoneNumber', 'position','edit','delete'];
+  constructor(public dialog:MatDialog){}
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -38,4 +41,17 @@ export class UserManagementComponent implements AfterViewInit {
     console.log(id)
 
   }
+
+  openEditDialog(): void {
+    const dialogRef = this.dialog.open(AddUserComponent , {
+      width: '500px', // Adjust width as needed
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // Optionally handle dialog close event
+    });
+  }
 }
+

@@ -1,0 +1,22 @@
+.table-cards-container {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  max-width: 100%; /* Ensure it stretches to fit the viewport */
+  margin-bottom: 60px; /* Adjust margin to leave space for fixed pagination */
+}
+
+.table-card {
+  flex: 1;
+  min-width: 500px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+table.mat-elevation-z8 {
+  width: 100%;
+
+
+}

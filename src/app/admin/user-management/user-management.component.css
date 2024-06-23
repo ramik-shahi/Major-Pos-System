@@ -36,3 +36,11 @@
 .add-button {
   white-space: nowrap; /* Prevent button text wrapping */
 }
+
+.use-img{
+  width: 50px;  /* Set the desired width */
+  height: 50px; /* Set the desired height */
+  object-fit: cover;
+  border-radius: 50%;
+
+}

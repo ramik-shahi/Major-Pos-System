@@ -19,7 +19,7 @@ export class UserManagementComponent implements AfterViewInit {
   @ViewChild(MatTable, { static: false }) table!: MatTable<Employee>;
 
   dataSource = new MatTableDataSource<Employee>(employees);
-  displayedColumns = ['id', 'name', 'panNumber', 'address', 'phoneNumber', 'position','edit','delete'];
+  displayedColumns = ['id', 'image', 'name', 'panNumber', 'address', 'phoneNumber', 'position','edit','delete'];
   constructor(public dialog:MatDialog){}
 
   ngAfterViewInit(): void {

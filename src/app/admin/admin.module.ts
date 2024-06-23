@@ -18,6 +18,8 @@ import { UserManagementModule } from './user-management/user-management.module';
 import { OrderModule } from './order/order.module';
 import { TableCheckoutModule } from './table-checkout/table-checkout.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CategoryModule } from './add-category/category.module';
+import { TableModule } from './table/table.module';
 
 
 
@@ -42,7 +44,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 
     UserManagementModule,
     TableCheckoutModule,
-    MatDialogModule
+    MatDialogModule,
+    CategoryModule,
+    TableModule
+
 
   ]
 })

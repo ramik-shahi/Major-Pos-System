@@ -1,0 +1,25 @@
+.full-width-table {
+  width: 100%;
+}
+
+.search-add-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+.search-input {
+  flex: 1; /* Take remaining space */
+}
+
+.add-button-container {
+  margin-left: 10px; /* Adjust spacing between input and button */
+}
+
+.mat-mdc-raised-button.mat-primary {
+    --mdc-protected-button-container-color: #54338f;
+    --mdc-protected-button-label-text-color: #fff;
+}
+
+

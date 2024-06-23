@@ -2,9 +2,7 @@
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
-  overflow-x: auto; /* Enable horizontal scrolling */
-  max-width: 100%; /* Ensure it stretches to fit the viewport */
-  margin-bottom: 60px; /* Adjust margin to leave space for fixed pagination */
+
 }
 
 .table-card {

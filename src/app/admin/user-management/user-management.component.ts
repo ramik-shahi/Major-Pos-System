@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Employee, employees } from './user-datasource';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from './add-user/add-user.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
 
 @Component({
   selector: 'app-user-management',
@@ -52,6 +53,20 @@ export class UserManagementComponent implements AfterViewInit {
       console.log('The dialog was closed');
       // Optionally handle dialog close event
     });
+  }
+
+  updateUser(id :any): void {
+    const dialogRef = this.dialog.open(UpdateUserComponent , {
+      width: '500px', // Adjust width as needed
+
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // Optionally handle dialog close event
+    });
+    console.log(id)
   }
 }
 

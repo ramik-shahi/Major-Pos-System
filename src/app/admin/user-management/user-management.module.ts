@@ -12,12 +12,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
+import { UpdateUserComponent } from './update-user/update-user.component';
 
 
 @NgModule({
   declarations: [
     UserManagementComponent,
     AddUserComponent,
+    UpdateUserComponent,
   ],
   imports: [
     CommonModule,

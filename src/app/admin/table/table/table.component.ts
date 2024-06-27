@@ -6,6 +6,7 @@ import { TableDataSource, TableItem } from './table-datasource';
 import { EXAMPLE_DATA } from '../../add-category/category/category-datasource';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTableComponent } from '../add-table/add-table.component';
+import { UpdateTableComponent } from '../update-table/update-table.component';
 
 @Component({
   selector: 'app-table',
@@ -34,6 +35,18 @@ export class TableComponent implements AfterViewInit {
   }
   openEditDialog(): void {
     const dialogRef = this.dialog.open(AddTableComponent, {
+      width: '500px', // Adjust width as needed
+      height:'200px'
+
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // Optionally handle dialog close event
+    });
+  }
+
+  updateTable(): void {
+    const dialogRef = this.dialog.open(UpdateTableComponent, {
       width: '500px', // Adjust width as needed
       height:'200px'
 

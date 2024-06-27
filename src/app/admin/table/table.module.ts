@@ -10,13 +10,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AddTableComponent } from './add-table/add-table.component';
+import { UpdateTableComponent } from './update-table/update-table.component';
 
 
 
 @NgModule({
   declarations: [
     TableComponent,
-    AddTableComponent
+    AddTableComponent,
+    UpdateTableComponent
 
   ],
   imports: [

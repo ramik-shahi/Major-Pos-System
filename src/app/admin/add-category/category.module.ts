@@ -10,12 +10,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UpdateCategoryComponent } from './update-category/update-category.component';
 
 
 @NgModule({
   declarations: [
     CategoryComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    UpdateCategoryComponent
   ],
   imports: [
     CommonModule,

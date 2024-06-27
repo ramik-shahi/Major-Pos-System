@@ -6,6 +6,7 @@ import { EXAMPLE_DATA,CategoryDataSource, CategoryItem } from './category-dataso
 import { AddUserComponent } from '../../user-management/add-user/add-user.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCategoryComponent } from '../add-category/add-category.component';
+import { UpdateCategoryComponent } from '../update-category/update-category.component';
 
 
 @Component({
@@ -46,5 +47,18 @@ export class CategoryComponent implements AfterViewInit {
       console.log('The dialog was closed');
       // Optionally handle dialog close event
     });
+  }
+
+  updatecategory():void{
+    const dialogRef = this.dialog.open(UpdateCategoryComponent,{
+
+        width: '500px', // Adjust width as needed
+      height:'200px'
+    });
+
+    dialogRef.afterClosed().subscribe(result=>{
+      console.log('the update close')
+    });
+
   }
 }

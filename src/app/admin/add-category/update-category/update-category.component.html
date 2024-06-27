@@ -1,8 +1,8 @@
 <body>
   <div class="form-container">
-    <h2>Add Table</h2>
+    <h2>Add Category</h2>
 
-    <form [formGroup]="tableForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
       <div class="form-grid">
         <div class="form-group">
           <label for="employee-name">Employee Name</label>
@@ -13,8 +13,9 @@
         <!-- Additional fields can be added here -->
         <button type="button" class="cancel-button" (click)="closeDialog()" >Cancel</button>
 
-        <button type="submit" [disabled]="tableForm.invalid" mat-raised-button color="primary">Add table</button>
+        <button type="submit" [disabled]="categoryForm.invalid" mat-raised-button color="primary">Update Category</button>
       </div>
     </form>
   </div>
 </body>
+

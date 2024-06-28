@@ -1,17 +1,18 @@
+
 import { Component,Inject  } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EmployeeForm } from '../../interface/employee.model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  selector: 'app-update-user',
+  templateUrl: './update-user.component.html',
+  styleUrls: ['./update-user.component.css']
 })
-export class AddUserComponent {
+export class UpdateUserComponent {
   positions = ['Manager', 'Developer', 'Designer', 'Analyst', 'Tester'];
   employeeForm: FormGroup;
-  constructor(private fb:FormBuilder,  public dialogRef: MatDialogRef<AddUserComponent>,
+  constructor(private fb:FormBuilder,  public dialogRef: MatDialogRef<UpdateUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { id: number }){
     this.employeeForm=fb.group({
       name: [''],
@@ -50,8 +51,5 @@ export class AddUserComponent {
   closeDialog(): void {
     this.dialogRef.close();
   }
-
-
-
 
 }

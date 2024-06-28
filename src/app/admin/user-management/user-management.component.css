@@ -1,0 +1,46 @@
+
+
+
+
+.mat-elevation-z8 {
+  overflow-x: auto; /* Enable horizontal scrolling */
+  max-width: 100%; /* Ensure it stretches to fit the viewport */
+  margin-bottom: 60px; /* Adjust margin to leave space for fixed pagination */
+}
+
+
+.mat-paginator {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white; /* Adjust as needed */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.search-add-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+.search-input {
+  flex: 1; /* Take remaining space */
+}
+
+.add-button-container {
+  margin-left: 10px; /* Adjust spacing between input and button */
+}
+
+.add-button {
+  white-space: nowrap; /* Prevent button text wrapping */
+}
+
+.use-img{
+  width: 50px;  /* Set the desired width */
+  height: 50px; /* Set the desired height */
+  object-fit: cover;
+  border-radius: 50%;
+
+}

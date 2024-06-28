@@ -1,0 +1,119 @@
+/* Overall container */
+p {
+    margin: 0;
+}
+
+.menu_container {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Food item cards container */
+.food_item_card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    flex: 0 0 80%;
+    margin: 0;
+}
+
+/* Individual food item cards */
+.card_item {
+    background-color: #ffc585;
+    border-radius: 5px;
+    width: calc(33.333% - 20px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Hover effect for cards */
+.card_item:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+/* Food image within cards */
+.food_img {
+    height: 150px;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+}
+
+.food_img img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5px 5px 0 0;
+}
+
+/* Item information section within cards */
+.item_info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+/* Food name within item info */
+.item_info .food_name {
+    font-weight: bold;
+    flex: 1;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Item description within item info */
+.item_info .description {
+    line-height: 2;
+    flex: 1;
+    text-align: justify;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.3s ease;
+    width: fit-content;
+    max-width: 300px;
+}
+
+.item_info .description:hover {
+    overflow: visible;
+    -webkit-line-clamp: unset;
+}
+
+/* Price within item info */
+.item_info .price {
+    font-weight: bold;
+    flex: 1;
+    text-align: center;
+}
+
+/* Search container */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 20%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.search-container .search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.search input {
+    width: 100%;
+    max-width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}

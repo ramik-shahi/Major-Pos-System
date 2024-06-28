@@ -1,1 +1,26 @@
-<p>menu works!</p>
+
+<div class="menu_container">
+    <div class="food_item_card">   
+        <div *ngFor="let card of cards" class="card_item" >
+            <div class="food_img">
+                <img src="assets/pizza.png" alt="pizza pic">
+            </div>
+            <div class="item_info"> 
+                <div class="food_name">
+                    {{card.name}}
+                </div>
+                <div class="description">
+                    <p>{{card.description}}</p>
+                </div>
+                <div class="price">
+                    ${{card.price}}
+                </div>   
+            </div>
+        </div>        
+    </div>
+    <div class="search-container">
+        <div class="search" >  
+            <input type="text" placeholder="Search..">
+        </div>
+    </div>
+</div>

@@ -16,10 +16,7 @@ import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { UserManagementModule } from './user-management/user-management.module';
 import { OrderModule } from './order/order.module';
-import { TableCheckoutModule } from './table-checkout/table-checkout.module';
-import { MatDialogModule } from '@angular/material/dialog';
-import { CategoryModule } from './add-category/category.module';
-import { TableModule } from './table/table.module';
+import { MenuModule } from './menu/menu.module';
 
 
 
@@ -41,14 +38,8 @@ import { TableModule } from './table/table.module';
     MatListModule,
     MatTableModule,
     OrderModule,
-
     UserManagementModule,
-    TableCheckoutModule,
-    MatDialogModule,
-    CategoryModule,
-    TableModule
-
-
+    MenuModule
   ]
 })
 export class AdminModule { }

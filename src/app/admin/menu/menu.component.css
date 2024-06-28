@@ -1,0 +1,26 @@
+.menu-container {
+  display: flex;
+  padding: 20px;
+}
+
+.search-card {
+  width: 300px;
+  margin-right: 20px;
+  padding: 1rem;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+.product-card {
+  width: 30%;
+}
+
+.done-button{
+  float: right;
+  margin: 2rem;
+}

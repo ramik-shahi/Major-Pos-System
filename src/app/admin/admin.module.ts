@@ -20,6 +20,8 @@ import { TableCheckoutModule } from './table-checkout/table-checkout.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CategoryModule } from './add-category/category.module';
 import { TableModule } from './table/table.module';
+import { MenuModule } from './menu/menu.module';
+
 
 
 
@@ -46,7 +48,8 @@ import { TableModule } from './table/table.module';
     TableCheckoutModule,
     MatDialogModule,
     CategoryModule,
-    TableModule
+    TableModule,
+    MenuModule
 
 
   ]

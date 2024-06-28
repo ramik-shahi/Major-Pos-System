@@ -1,7 +1,8 @@
 <div class="menu-container">
   <div>
       <div class="products">
-              <mat-card *ngFor="let product of products" class="product-card">
+              <mat-card *ngFor="let product of products" class="product-card"
+              (click)="selectProduct(product)" [class.selecte]="product.selected">
                   <img mat-card-image [src]="product.image" alt="{{product.name}}" class="image">
                   <mat-card-content>
                       <h2>{{product.name}}</h2>
@@ -10,7 +11,7 @@
                   </mat-card-content>
               </mat-card>
           </div>
-          <button mat-raised-button color="primary" class="done-button">DONE</button>
+          <button mat-raised-button color="primary" class="done-button" (click)="onSubmit()">DONE</button>
   </div>
 
   <mat-card class="search-card">

@@ -1,6 +1,7 @@
 .menu-container {
   display: flex;
   padding: 20px;
+  overflow-x: auto;
 }
 
 .search-card {
@@ -10,13 +11,15 @@
 }
 
 .products {
-  display: flex;
+  display: ruby;
   flex-wrap: wrap;
   gap: 20px;
   flex-grow: 1;
 }
 
 .product-card {
+  cursor: pointer;
+  margin: 10px;
   width: 30%;
 }
 
@@ -24,3 +27,11 @@
   float: right;
   margin: 2rem;
 }
+
+
+
+.product-card.selecte {
+  border: 2px solid green;
+  box-shadow: 0 0 10px green;
+}
+

@@ -1,16 +1,45 @@
-<!-- table-cards.component.html -->
-<div class="table-cards-container">
-  <mat-card *ngFor="let table of tables" class="table-card">
+<!-- table-checkout-card.component.html -->
+<mat-card class="checkout-card">
     <mat-card-header>
       <mat-card-title>Table {{ table.number }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>${{ table.amount }}</p>
+      <table mat-table [dataSource]="orders" class="mat-elevation-z8">
+        <ng-container matColumnDef="item">
+          <th mat-header-cell *matHeaderCellDef> Item </th>
+          <td mat-cell *matCellDef="let element">
+            <img mat-card-image [src]="element.image" alt="{{element.title}}" style="width: 100px; height: 100px;">
+            {{element.item}}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="qty">
+          <th mat-header-cell *matHeaderCellDef> Qty </th>
+          <td mat-cell *matCellDef="let element"> {{element.qty}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="rate">
+          <th mat-header-cell *matHeaderCellDef> Rate </th>
+          <td mat-cell *matCellDef="let element"> {{element.rate}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef> Total </th>
+          <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <div class="totals">
+        <p>Sub Total: {{ subTotal }}</p>
+        <p>Discount: {{ discount }}%</p>
+        <p>VAT: {{ vat }}%</p>
+        <p>Total: {{ total }}</p>
+      </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary">Add Order</button>
+      <button mat-raised-button color="accent" (click)="onSubmit()">Checkout</button>
     </mat-card-actions>
   </mat-card>
-
-
-</div>
+  

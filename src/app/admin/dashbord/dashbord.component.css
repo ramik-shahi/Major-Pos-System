@@ -1,118 +1,54 @@
-body {
-  background-color: #f0f0f0; /* Light gray background */
-  margin: 0;
-  font-family: Arial, sans-serif; /* Default font */
-  width: 100%;
+/* styles.css */
+.mat-drawer-container{
+  height: 100vh !important;
+}
+/* Custom styles for navbar and header */
+.mat-toolbar.mat-primary,
+.mat-drawer {
+    background-color: white;
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    }
+
+.mat-sidenav {
+    background-color: white !important;
+    width: 200px;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+
 }
 
-.row-container {
-  display: flex; /* Enables Flexbox */
-  flex-direction: row; /* Aligns children in a row */
-  justify-content: space-between; /* Distributes space between items */
-  background-color: #f0f0f0; /* Optional: background color for the container */
-  padding: 10px; /* Optional: padding for the container */
-  height: 17%;
-  
+.mat-nav-list a.mat-list-item.active,
+.mdc-list-item__primary-text {
+    color: #000 !important;
 }
 
-.row-item {
-  background-color: #ffffff; /* Optional: background color for each item */
-  border: 1px solid #ccc; /* Optional: border for each item */
-  padding: 10px; /* Optional: padding for each item */
-  margin: 0 19px; /* Optional: margin between items */
-  flex: 1; /* Ensure each item takes up equal space */
-  text-align: center; /* Center-align text in each item */
+.mat-icon-rtl-dashboard{
+  height: 1rem o !important;
 }
 
-.middle {
-  display: flex; /* Enables Flexbox */
-  flex-direction: row; /* Aligns children in a row */
-  justify-content: space-between; /* Distributes space between items */
-  background-color: #ffffff; /* Optional: background color for the container */
-  border: 1px solid #ccc;
-  /* Optional: padding for the container */
-  height: 35%;
-  width:58%;
-  
-  padding: 10px;
-  margin-bottom: 20px; 
-}
-
-.main-container {
+.mat-toolbar{
   display: flex;
-  height: 80% ;/* Full height of the viewport */
-  
-  
-  margin-top: 104px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.left-container {
+.mat-icon {
+  font-size: 20px;
+  height: 1.2rem;
+}
+.container{
+  padding: 0.5rem;
+  margin-top: 1rem;
+}
+
+.flex-card{
   display: flex;
-  flex-direction: column; /* Stack items vertically */
-  width: 73%; /* Width of the left container */
-  margin:0px 3px; /* Space between left and right container */
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-.top, .bottom {
-  flex: 1; /* Take up equal space */
-  background-color: #f0f0f0; /* Optional: background color */
-  border: 1px solid #ccc; /* Optional: border */
-  padding: 10px; /* Optional padding */
-  margin-bottom: 20px; /* Space between top and bottom containers */
-  margin-left: 26px;
-}
-
-.bottom {
-  margin-bottom: 0; /* Remove bottom margin for the last item */
-}
-
-.right {
-  width: 20%; /* Width of the right container */
-  background-color: #ffffff; /* Optional: background color */
-  border: 1px solid #ccc; /* Optional: border */
-  padding: 10px; /* Optional padding */
-  height: 60%;
-  margin-left: 35px;
-}
-.nav {
-  background-color: #333; /* Dark background color */
-  color: white; /* Text color */
-  width: 20%; /* Width of the navigation bar */
-  min-width: 200px; /* Minimum width */
-  padding: 20px; /* Padding inside the nav bar */
-  box-sizing: border-box; /* Include padding in width calculation */
-  height: 100vh; /* Full height of the viewport */
-  
-}
-
-@media screen and (max-width: 768px) {
-  .row-container {
-      margin-left: 0; /* Remove left margin on smaller screens */
-      justify-content: center; /* Center items on smaller screens */
-  }
-  .row-item {
-      margin: 0 10px; /* Reduce margin between items on smaller screens */
-  }
-  .middle {
-      width: 100%; /* Full width on smaller screens */
-      margin-left: 0; /* Remove left margin on smaller screens */
-  }
-  .main-container {
-      margin-left: 0; /* Remove left margin on smaller screens */
-      width: 100%; /* Full width on smaller screens */
-  }
-  .left-container {
-      width: 100%; /* Full width on smaller screens */
-      margin-right: 0; /* Remove right margin on smaller screens */
-  }
-  .top, .bottom {
-      margin-left: 0; /* Remove left margin on smaller screens */
-  }
-  .right {
-    width: 100%; /* Full width on smaller screens */
-    background-color: #ffffff; /* Optional: background color */
-    border: 1px solid #ccc; /* Optional: border */
-    padding: 10px; /* Optional padding */
-    margin: 0; /* Remove margin on smaller screens */
-  }
+.flex-card .mat-mdc-card.mdc-card{
+  margin: 0 1rem;
+  width: 22%;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
 }

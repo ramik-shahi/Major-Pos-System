@@ -1,20 +1,14 @@
-.table-cards-container {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-
-}
-
-.table-card {
-  flex: 1;
-  min-width: 500px;
-  height: 150px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-table.mat-elevation-z8 {
-  width: 100%;
-
-
-}
+/* table-checkout-card.component.css */
+.checkout-card {
+    width: 100%; /* Ensure it takes full width of its container */
+    box-shadow: none;
+  }
+  
+  .totals {
+    margin-top: 16px;
+  }
+  
+  .totals p {
+    margin: 4px 0;
+  }
+  

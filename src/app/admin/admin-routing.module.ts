@@ -7,10 +7,12 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { MenuComponent } from './menu/menu.component';
 import { AddUserComponent } from './user-management/add-user/add-user.component';
 import { OrderComponent } from './order/order.component';
-import { TableCheckoutComponent } from './table-checkout/table-checkout.component';
+// import { TableCheckoutComponent } from './table-checkout/table-checkout.component';
 import { CategoryComponent } from './add-category/category/category.component';
 import { AddCategoryComponent } from './add-category/add-category/add-category.component';
 import { TableComponent } from './table/table/table.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { PaymentComponent } from './payment/payment.component';
 
 const routes: Routes = [
   // { path: '', component: AdminComponent },
@@ -27,10 +29,11 @@ const routes: Routes = [
     {path:'menu',component:MenuComponent,data: { title: 'Menu' } },
 
     {path:'order',component:OrderComponent,data: { title: 'Order' } },
-    { path: 'Take-Order/Checkout', component:TableCheckoutComponent },
+    { path: 'Take-Order/Checkout', component:CheckoutComponent },
     { path: 'catogory', component:CategoryComponent },
     { path: 'add-catogory', component:AddCategoryComponent },
     { path: 'table', component:TableComponent },
+    {path: 'payment' , component:PaymentComponent},
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 
 

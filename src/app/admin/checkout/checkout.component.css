@@ -1,0 +1,15 @@
+/* app.component.css */
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  
+  .table-cards-wrapper {
+    flex: 3; /* 60% of the container */
+  }
+  
+  .checkout-card-wrapper {
+    flex: 1; /* 40% of the container */
+  }
+  

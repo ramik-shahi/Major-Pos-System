@@ -21,6 +21,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CategoryModule } from './add-category/category.module';
 import { TableModule } from './table/table.module';
 import { MenuModule } from './menu/menu.module';
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 
 
@@ -49,7 +52,9 @@ import { MenuModule } from './menu/menu.module';
     MatDialogModule,
     CategoryModule,
     TableModule,
-    MenuModule
+    MenuModule,
+    HttpClientModule,
+
 
 
   ]

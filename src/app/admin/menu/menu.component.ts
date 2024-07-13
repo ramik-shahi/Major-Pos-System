@@ -1,5 +1,6 @@
 // menu.component.ts
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/service/api.service';
 
 interface Product {
   name: string;
@@ -14,7 +15,27 @@ interface Product {
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent {
+export class MenuComponent  implements OnInit{
+  ngOnInit(): void {
+    const itemData = {
+
+      item_name: 'Pizza',
+      item_price: 10.99,
+      item_category: 'Food',
+      item_pic: 'pizza.jpg',
+      item_description: 'Delicious pizza with cheese and toppings',
+      restaurant_id: 12345,
+      restaurant_name: 'Pizza Place'
+    };
+    this.apiservice.test_Post(itemData).subscribe(Response=>{
+      console.log(Response)
+    })
+
+  }
+
+  constructor(private apiservice:ApiService){
+
+  }
   selectedProducts: { product: Product, quantity: number }[] = [];
 
   categories = ['Drinks', 'Breakfast', 'Lunch', 'Dinner', 'Hot Drinks', 'Tea', 'Coffee', 'Cold Drinks'];

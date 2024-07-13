@@ -17,14 +17,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
-
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     PagenotFoundComponent,
-   
+
   ],
   imports: [
     BrowserModule,
@@ -37,8 +37,9 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     MatListModule,
     MatTableModule ,
-    MatCardModule 
-    
+    MatCardModule ,
+    AdminModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

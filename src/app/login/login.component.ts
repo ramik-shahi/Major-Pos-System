@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginServiceService } from '../services/login-service.service';
 import { Route, Router } from '@angular/router';
+import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   password:string="";
 
 
-  constructor(private fb:FormBuilder,private _login:LoginServiceService,private route:Router){}
+  constructor(private fb:FormBuilder,private _login:LoginServiceService,private route:Router,private auth:AuthServiceService){}
 
   ngOnInit(): void {
    // sessionStorage.setItem('isAdmin',"false")
@@ -24,22 +25,23 @@ export class LoginComponent implements OnInit {
     });
     console.log(sessionStorage.getItem('isAdmin'))
 
-    
+
   }
 
- 
+
   login(){
     this.email=this.loginForm.value.email
     this.password=this.loginForm.value.password
-    
-    
+
+
     // if(this._login.login(this.email,this.password)){
     //   console.log('hello')
     //   this.route.navigate(['/admin']);
-       
+
     // }
 
-    this._login.login(this.email,this.password)
+    // this._login.login(this.email,this.password)
+    this.auth.login(this.email,this.password)
   }
 
 }

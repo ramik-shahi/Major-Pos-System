@@ -11,6 +11,7 @@ export class LoginServiceService {
   login(email:string,password:string){
     if(email==="admin@gmail.com" && password==="admin123"){
       sessionStorage.setItem('isAdmin',"true")
+      sessionStorage.setItem('isWaiter','true')
       this.router.navigate(['/admin/dashboard']); // Redirect to dashboard on successful login
       return true;
       

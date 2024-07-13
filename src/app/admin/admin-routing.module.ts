@@ -11,29 +11,31 @@ import { OrderComponent } from './order/order.component';
 import { CategoryComponent } from './add-category/category/category.component';
 import { AddCategoryComponent } from './add-category/add-category/add-category.component';
 import { TableComponent } from './table/table/table.component';
+import { authGuard } from '../guard/authGuard/auth-guard.guard';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentComponent } from './payment/payment.component';
+
 
 const routes: Routes = [
   // { path: '', component: AdminComponent },
   // { path: 'dash', component: DashbordComponent },
   {path:'',component:AdminComponent ,   children:[
 
-    {path:'dashboard',component:DashbordComponent,data: { title: 'Dashboard' } },
+    {path:'dashboard',component:DashbordComponent, canActivate:[authGuard],data: { title: 'Dashboard',expectedRoles: ['admin'] } },
 
-    {path:'user-management',component:UserManagementComponent,data: { title: 'User Management' },children:[
-      {path:'add-employee',component:AddUserComponent },
+    {path:'user-management',component:UserManagementComponent,canActivate:[authGuard],data: { title: 'User Management',expectedRoles: ['admin'] },children:[
+      {path:'add-employee',component:AddUserComponent,canActivate:[authGuard],data: { title: 'Add Employee',expectedRoles: ['admin'] } },
 
     ] },
 
     {path:'menu',component:MenuComponent,data: { title: 'Menu' } },
 
     {path:'order',component:OrderComponent,data: { title: 'Order' } },
-    { path: 'Take-Order/Checkout', component:CheckoutComponent },
+     { path: 'Take-Order/Checkout', component:CheckoutComponent },
     { path: 'catogory', component:CategoryComponent },
     { path: 'add-catogory', component:AddCategoryComponent },
     { path: 'table', component:TableComponent },
-    {path: 'payment' , component:PaymentComponent},
+    {path:'payment',component:PaymentComponent},
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 
 

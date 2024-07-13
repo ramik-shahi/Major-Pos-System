@@ -5,6 +5,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 
 
 
@@ -15,7 +16,7 @@ import { filter } from 'rxjs/operators';
 })
 export class AdminNavComponent implements OnInit {
    pageTitle: string = 'Dashboard';
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,private auth:AuthServiceService) { }
   ngOnInit(): void {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
@@ -37,5 +38,10 @@ export class AdminNavComponent implements OnInit {
         route = route.firstChild;
       }
       this.pageTitle = route.snapshot.data['title']; // Assuming you set 'title' in the route's data
+    }
+    isAdmin(){
+
+      return this.auth.getRole()==='admin'
+
     }
 }

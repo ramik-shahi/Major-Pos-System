@@ -10,6 +10,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { FormsModule } from '@angular/forms'; // Add this import
+import { MatPaginatorModule } from '@angular/material/paginator'; // Add this import
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FormsModule } from '@angular/forms'; // Add this import
     MatSliderModule,
     MatDividerModule,
     MatListModule,
-    FormsModule // Add this module
+    FormsModule, // Add this module
+    MatPaginatorModule // Add this module
   ]
 })
 export class MenuModule { }

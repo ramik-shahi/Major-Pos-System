@@ -1,7 +1,7 @@
 <div class="menu-container">
     <div>
       <div class="products">
-        <mat-card *ngFor="let product of filteredProducts" class="product-card"
+        <mat-card *ngFor="let product of paginatedProducts" class="product-card"
                   (click)="selectProduct(product)" [class.selected]="product.selected">
           <img mat-card-image [src]="product.image" alt="{{product.name}}" class="image">
           <mat-card-content>
@@ -12,8 +12,11 @@
         </mat-card>
       </div>
       <button mat-raised-button color="primary" class="done-button" (click)="onSubmit()">DONE</button>
+      <mat-paginator [length]="filteredProducts.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                     (page)="onPageChange($event)">
+      </mat-paginator>
     </div>
-  
+
     <mat-card class="search-card">
       <mat-form-field appearance="outline">
         <mat-label>Search Products</mat-label>
@@ -22,18 +25,18 @@
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
-  
+
       <mat-divider></mat-divider>
-  
+
       <div class="categories">
         <h3>Categories</h3>
         <mat-list>
-          <mat-list-item *ngFor="let category of categories">{{category}}</mat-list-item>
+          <mat-list-item  *ngFor="let category of categories"  (click)="categories_s(category)">{{category}}</mat-list-item>
         </mat-list>
       </div>
-  
+
       <mat-divider></mat-divider>
-  
+
       <div class="price-filter">
         <h3>Filter by Price</h3>
         <mat-slider min="1" max="5" step="0.5">
@@ -42,4 +45,3 @@
       </div>
     </mat-card>
   </div>
-  

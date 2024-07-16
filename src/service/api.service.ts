@@ -27,8 +27,8 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}user/registration`,data)
 
   }
-  getUser(resId:any):Observable<any>{
-    return this.http.get(`${this.apiUrl}user`)
+  getUser(restaurant_id:any):Observable<any>{
+    return this.http.get(`${this.apiUrl}user/${restaurant_id}`)
 
   }
 

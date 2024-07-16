@@ -2,6 +2,7 @@ import { Component,Inject  } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EmployeeForm } from '../../interface/employee.model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ApiService } from 'src/service/api.service';
 
 @Component({
   selector: 'app-add-user',
@@ -9,9 +10,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent {
-  positions = ['Manager', 'Developer', 'Designer', 'Analyst', 'Tester'];
+  positions = ['Manager', 'Waiter', 'KItchen', 'Reception'];
   employeeForm: FormGroup;
-  constructor(private fb:FormBuilder,  public dialogRef: MatDialogRef<AddUserComponent>,
+  constructor(private fb:FormBuilder, private api:ApiService, public dialogRef: MatDialogRef<AddUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { id: number }){
     this.employeeForm=fb.group({
       name: [''],
@@ -43,9 +44,35 @@ export class AddUserComponent {
 
 
   saveChanges(): void {
-    // Logic to save changes (e.g., update employee details)
+    const userData = {
+        name: this.employeeForm.value.name,
+        email: this.employeeForm.value.email,
+        password: this.employeeForm.value.password,
+        phone_no: this.employeeForm.value.phoneNumber,
+        pic: this.employeeForm.value.image,
+        position: this.employeeForm.value.position,
+        pan_no: this.employeeForm.value.panNumber,
+        address: this.employeeForm.value.address,
+        restaurant_id: sessionStorage.getItem('restaurant_id'),
+        restaurant_name: 'hello'
+    };
+
+    console.log("User data to save:", userData);
+
+    this.api.registration(userData).subscribe({
+        next: (res) => {
+            console.log("Registration response:", res);
+            // Handle success scenario
+        },
+        error: (err) => {
+            console.error("Registration error:", err);
+            // Handle error scenario
+        }
+    });
+
     this.dialogRef.close();
-  }
+}
+
 
   closeDialog(): void {
     this.dialogRef.close();

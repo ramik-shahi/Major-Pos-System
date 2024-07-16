@@ -27,9 +27,9 @@ export class MenuComponent  implements OnInit{
       restaurant_id: 12345,
       restaurant_name: 'Pizza Place'
     };
-    this.apiservice.test_Post(itemData).subscribe(Response=>{
-      console.log(Response)
-    })
+    // this.apiservice.test_Post(itemData).subscribe(Response=>{
+    //   console.log(Response)
+    // })
 
   }
 

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginServiceService } from '../services/login-service.service';
 import { Route, Router } from '@angular/router';
 import { AuthServiceService } from '../services/auth-service.service';
+import { ApiService } from 'src/service/api.service';
 
 @Component({
   selector: 'app-login',
@@ -15,12 +16,12 @@ export class LoginComponent implements OnInit {
   password:string="";
 
 
-  constructor(private fb:FormBuilder,private _login:LoginServiceService,private route:Router,private auth:AuthServiceService){}
+  constructor(private fb:FormBuilder,private _login:LoginServiceService,private route:Router,private auth:AuthServiceService,private apiservice:ApiService){}
 
   ngOnInit(): void {
    // sessionStorage.setItem('isAdmin',"false")
     this.loginForm=this.fb.group({
-      email:['',[Validators.required,Validators.email]],
+      email:['',[Validators.required]],
       password:['',[Validators.required, Validators.minLength(6)]]
     });
     console.log(sessionStorage.getItem('isAdmin'))
@@ -32,6 +33,9 @@ export class LoginComponent implements OnInit {
   login(){
     this.email=this.loginForm.value.email
     this.password=this.loginForm.value.password
+    console.log(this.loginForm.value)
+
+
 
 
     // if(this._login.login(this.email,this.password)){
@@ -41,7 +45,7 @@ export class LoginComponent implements OnInit {
     // }
 
     // this._login.login(this.email,this.password)
-    this.auth.login(this.email,this.password)
+    this.auth.login(this.loginForm.value)
   }
 
 }

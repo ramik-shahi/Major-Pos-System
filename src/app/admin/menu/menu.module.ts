@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from './menu.component';
-
 import { StartRatingComponent } from './start-rating/start-rating.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,9 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
-
-
-
+import { FormsModule } from '@angular/forms'; // Add this import
 
 @NgModule({
   declarations: [
@@ -27,8 +24,8 @@ import { MatListModule } from '@angular/material/list';
     MatIconModule,
     MatSliderModule,
     MatDividerModule,
-    MatListModule
-
+    MatListModule,
+    FormsModule // Add this module
   ]
 })
 export class MenuModule { }

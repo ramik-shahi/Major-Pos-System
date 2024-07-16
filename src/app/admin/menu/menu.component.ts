@@ -7,6 +7,7 @@ interface Product {
   price: number;
   rating: number;
   image: string;
+  quantity?: number;
   selected?: boolean;
 }
 
@@ -17,12 +18,12 @@ interface Product {
 })
 export class MenuComponent implements OnInit {
   products: Product[] = [
-    { name: 'Pizza', price: 5, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 2 },
-    { name: 'Salad', price: 3, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 3 },
-    { name: 'Coffee', price: 2, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 4 },
-    { name: 'Italian', price: 6, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 5 },
-    { name: 'Chicken', price: 5, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 1 },
-    { name: 'Burger', price: 5, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 2 }
+    { name: 'Pizza', price: 5, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 2, quantity: 0 },
+    { name: 'Salad', price: 3, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 3, quantity: 0 },
+    { name: 'Coffee', price: 2, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 4, quantity: 0 },
+    { name: 'Italian', price: 6, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 5, quantity: 0 },
+    { name: 'Chicken', price: 5, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 1, quantity: 0 },
+    { name: 'Burger', price: 5, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 2, quantity: 0 }
   ];
 
   filteredProducts: Product[] = [...this.products];
@@ -77,13 +78,23 @@ export class MenuComponent implements OnInit {
   selectProduct(product: Product) {
     product.selected = !product.selected;
     if (product.selected) {
-      this.selectedProducts.push({ product, quantity: 1 });
+      this.selectedProducts.push({ product, quantity: product.quantity || 0 });
       console.log(product);
     } else {
       const index = this.selectedProducts.findIndex(p => p.product.name === product.name);
       if (index !== -1) {
         this.selectedProducts.splice(index, 1);
       }
+    }
+  }
+
+  increaseQuantity(product: Product) {
+    product.quantity = (product.quantity || 0) + 1;
+  }
+
+  decreaseQuantity(product: Product) {
+    if (product.quantity && product.quantity > 0) {
+      product.quantity--;
     }
   }
 

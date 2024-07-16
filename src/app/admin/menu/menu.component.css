@@ -35,3 +35,28 @@
   box-shadow: 0 0 10px green;
 }
 
+
+/* .product-card h2 {
+  display: flex;
+  align-items: center;
+}
+
+.product-card h2 button {
+  margin: 0 5px;
+} */
+
+.product-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-controls button {
+  margin: 0 5px;
+  border-radius: 10px;
+}

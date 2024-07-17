@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/service/api.service';
 import { PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface Product {
   id:string;
@@ -29,10 +30,18 @@ export class MenuComponent implements OnInit {
   pageSize = 5;
   pageSizeOptions: number[] = [5, 10, 20];
   pageIndex = 0;
+  table_number:any;
 
-  constructor(private apiservice: ApiService) { }
+  constructor(private apiservice: ApiService,private activatedroute: ActivatedRoute) {
+   
+   }
 
   ngOnInit(): void {
+
+    console.log('-------------------------')
+   this.table_number=this.activatedroute.snapshot.paramMap.get('table_number'); 
+   
+    console.log('-------------------------')
     const resId = sessionStorage.getItem('restaurant_id');
     this.apiservice.getMenu(resId).subscribe((response: any[]) => {
       this.products = response.map(item => ({

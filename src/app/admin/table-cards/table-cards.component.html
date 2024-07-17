@@ -8,7 +8,7 @@
         <p>${{ table.amount }}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button color="primary">Add Order</button>
+        <button mat-raised-button color="primary" (click)="addOrder(table.number)">Add Order</button>
       </mat-card-actions>
     </mat-card>
   </div>

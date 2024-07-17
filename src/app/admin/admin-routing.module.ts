@@ -28,7 +28,12 @@ const routes: Routes = [
 
     ] },
 
-    {path:'menu',component:MenuComponent,data: { title: 'Menu' } },
+    {path:'menu/:table_number',component:MenuComponent,data: { title: 'Menu' } },
+    {
+      path: 'menu',
+      redirectTo: 'menu/default', // Redirect to default if no table_number provided
+      pathMatch: 'full'
+    },
 
     {path:'order',component:OrderComponent,data: { title: 'Order' } },
      { path: 'Take-Order/Checkout', component:CheckoutComponent },

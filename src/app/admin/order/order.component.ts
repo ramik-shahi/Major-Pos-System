@@ -1,44 +1,56 @@
-  import { Component, OnInit } from '@angular/core';
-  import { Order } from '../interface/order';
-  import { ApiService } from 'src/service/api.service';
-  @Component({
-    selector: 'app-order',
-    templateUrl: './order.component.html',
-    styleUrls: ['./order.component.css']
-  })
-  export class OrderComponent implements OnInit {
-  resid:any=sessionStorage.getItem('restaurant_id')
-    constructor(private api:ApiService){
-    
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/service/api.service';
+import { Order } from '../interface/order';
 
-    }
-    ngOnInit(): void {
-      this.api.getOrder(this.resid).subscribe(res=>{
-        console.log(res)
-      })
-    }
-    ELEMENT_DATA: Order[] = [
-      {
-        order: 'Table 1 - 12:30 PM',
-        cards: [
-          { item_name: 'Pizza', image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg' },
-          { item_name: 'Pasta', image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg' },
-          { item_name: 'Salad', image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg' },
-          { item_name: 'Soup', image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg' }
-        ],
-      },
-      {
-        order: 'Table 2 - 12:45 PM',
-        cards: [
-          { item_name: 'Pizza', image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg' },
-          { item_name: 'Pasta', image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg' },
-          { item_name: 'Salad', image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg' },
-          { item_name: 'Soup', image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg' }
-        ],
-      },
-    ];
-  
+@Component({
+  selector: 'app-order',
+  templateUrl: './order.component.html',
+  styleUrls: ['./order.component.css']
+})
+export class OrderComponent implements OnInit {
+  resid: any = sessionStorage.getItem('restaurant_id');
+  orders: any[] = []; // This will hold the transformed orders
+  displayedColumns: string[] = ['order', 'cards'];
 
-    displayedColumns: string[] = ['order', 'cards'];
-    dataSource = this.ELEMENT_DATA;
+  constructor(private api: ApiService) {}
+
+  ngOnInit(): void {
+    if (this.resid) {
+      this.api.getOrder(this.resid).subscribe(
+        (res: any[]) => {
+          console.log(res)
+          this.transformOrders(res); // Transform received orders
+        },
+        error => {
+          console.error('Error fetching orders:', error);
+        }
+      );
+    }
   }
+
+  transformOrders(orders: any[]): void {
+    const tableOrdersMap = new Map<string, any>();
+
+    orders.forEach(order => {
+      const tableNo = order.table_name; // Assuming the backend response has a 'table' field
+
+      if (tableOrdersMap.has(tableNo)) {
+        const existingOrder = tableOrdersMap.get(tableNo);
+        existingOrder.cards.push({
+          item_name: order.item_name,
+          image: order.image
+        });
+      } else {
+        tableOrdersMap.set(tableNo, {
+          order: `Table ${tableNo} `, // Assuming 'time' field in the response
+          cards: [{
+            item_name: order.item_name,
+            image: order.image
+          }]
+        });
+      }
+    });
+
+    this.orders = Array.from(tableOrdersMap.values());
+  }
+}

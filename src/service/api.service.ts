@@ -35,5 +35,13 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}menu/${restaurant_id}`)
 
   }
+  postOrder(data:any):Observable<any>{
+    return this.http.post(`${this.apiUrl}order/upload`,data)
+
+  }
+  getOrder(restaurant_id:any):Observable<any>{
+    return this.http.get(`${this.apiUrl}order/${restaurant_id}`)
+
+  }
 
 }

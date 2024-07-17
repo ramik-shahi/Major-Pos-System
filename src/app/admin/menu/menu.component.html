@@ -3,15 +3,15 @@
       <div class="products">
         <mat-card *ngFor="let product of paginatedProducts" class="product-card"
                   (click)="selectProduct(product)" [class.selected]="product.selected">
-          <img mat-card-image [src]="product.image" alt="{{product.name}}" class="image">
+          <img mat-card-image [src]="product.image" alt="{{product.item_name}}" class="image">
           <mat-card-content>
             <div class="product-details">
-              <h2>{{product.name}}</h2>
+              <h2>{{product.item_name}}</h2>
               <div class="quantity-controls">
                 <button mat-icon-button color="accent" (click)="decreaseQuantity(product); $event.stopPropagation();">
                   <mat-icon>remove</mat-icon>
                 </button>
-                <span>{{product.quantity}}</span>
+                <span>{{product.item_quantity}}</span>
                 <button mat-icon-button color="accent" (click)="increaseQuantity(product); $event.stopPropagation();">
                   <mat-icon>add</mat-icon>
                 </button>

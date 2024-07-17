@@ -1,7 +1,7 @@
 import { Title } from "@angular/platform-browser";
 
 export interface Cardchild {
-  title: string;
+  item_name: string;
   image: string;
 }
 

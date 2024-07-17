@@ -3,14 +3,28 @@ import { ApiService } from 'src/service/api.service';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 
+
+interface SelectedProduct {
+  product: Product;
+  table_name: string;
+  billStatus: string;
+  user_id:any;
+  order_status:string;
+  bill_id:any;
+  restaurant_id:any;
+  restaurant_name:any;
+  order_date:any
+}
+
 interface Product {
-  id:string;
-  name: string;
-  price: number;
+  menu_id:string;
+  item_name: string;
+  price: string;
   rating: number;
   image: string;
-  quantity: number;
+  item_quantity: number;
   selected?: boolean;
+ 
 }
 
 @Component({
@@ -23,7 +37,9 @@ export class MenuComponent implements OnInit {
   filteredProducts: Product[] = [];
   paginatedProducts: Product[] = [];
   searchTerm: string = '';
-  selectedProducts: { product: Product }[] = [];
+
+
+ orders: SelectedProduct[] = [];
 
   categories = ['Drinks', 'Breakfast', 'Lunch', 'Dinner', 'Hot Drinks', 'Tea', 'Coffee', 'Cold Drinks'];
 
@@ -45,12 +61,12 @@ export class MenuComponent implements OnInit {
     const resId = sessionStorage.getItem('restaurant_id');
     this.apiservice.getMenu(resId).subscribe((response: any[]) => {
       this.products = response.map(item => ({
-        id:item._id,
-        name: item.item_name,
+        menu_id:item._id,
+        item_name: item.item_name,
         price: item.item_price,
         rating: item.item_rating,
         image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg',
-        quantity: 0,
+        item_quantity: 0,
         selected: false
       }));
       this.filteredProducts = [...this.products];
@@ -62,7 +78,7 @@ export class MenuComponent implements OnInit {
 
   filterProducts() {
     this.filteredProducts = this.products.filter(product =>
-      product.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      product.item_name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
     this.updatePaginatedProducts();
   }
@@ -80,35 +96,63 @@ export class MenuComponent implements OnInit {
   }
 
   selectProduct(product: Product) {
-    if (product.quantity > 0) {
+    if (product.item_quantity > 0) {
       product.selected = !product.selected;
     }
 
-    if (product.selected && product.quantity > 0) {
-      this.selectedProducts.push({ product});
+    if (product.selected && product.item_quantity > 0) {
+      this.orders.push({ product,
+        table_name: this.table_number, 
+        billStatus: 'Pending' ,
+        user_id:sessionStorage.getItem('user_id')?.toString(),
+        order_status:'Pending',
+        bill_id:null,
+        restaurant_id:sessionStorage.getItem('restaurant_id')?.toString(),
+        restaurant_name:sessionStorage.getItem('restaurant_name')?.toString(),
+        order_date:Date.now()
+
+      });-
       console.log(product);
     } else {
-      const index = this.selectedProducts.findIndex(p => p.product.name === product.name);
+      const index = this.orders.findIndex(p => p.product.item_name === product.item_name);
       if (index !== -1) {
-        this.selectedProducts.splice(index, 1);
+        this.orders.splice(index, 1);
       }
     }
   }
 
   increaseQuantity(product: Product) {
     if (!product.selected) {
-      product.quantity = (product.quantity || 0) + 1;
+      product.item_quantity = (product.item_quantity || 0) + 1;
     }
   }
 
   decreaseQuantity(product: Product) {
-    if (product.quantity && product.quantity > 0 && !product.selected) {
-      product.quantity--;
+    if (product.item_quantity && product.item_quantity > 0 && !product.selected) {
+      product.item_quantity--;
     }
   }
 
   onSubmit() {
-    console.log(this.selectedProducts);
+
+    const orderPayload= {
+      orders: this.orders.map(order => ({
+        menu_id: order.product.menu_id,
+        user_id: order.user_id,
+        table_name: order.table_name,
+        item_name: order.product.item_name,
+        item_quantity: order.product.item_quantity,
+        order_date: order.order_date,
+        order_status: order.order_status,
+        bill_id: order.bill_id,
+        restaurant_id: order.restaurant_id,
+        restaurant_name: order.restaurant_name
+      }))
+    };
+    this.apiservice.postOrder(orderPayload).subscribe(res=>{
+      console.log(res);
+    })
+    console.log(orderPayload);
 
   }
 

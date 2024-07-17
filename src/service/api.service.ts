@@ -31,5 +31,9 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}user/${restaurant_id}`)
 
   }
+  getMenu(restaurant_id:any):Observable<any>{
+    return this.http.get(`${this.apiUrl}menu/${restaurant_id}`)
+
+  }
 
 }

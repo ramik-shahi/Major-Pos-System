@@ -3,10 +3,12 @@ import { ApiService } from 'src/service/api.service';
 import { PageEvent } from '@angular/material/paginator';
 
 interface Product {
+  id:string;
   name: string;
   price: number;
   rating: number;
   image: string;
+  quantity: number;
   selected?: boolean;
 }
 
@@ -16,19 +18,11 @@ interface Product {
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  products: Product[] = [
-    { name: 'Pizza', price: 5, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 2 },
-    { name: 'Salad', price: 3, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 3 },
-    { name: 'Coffee', price: 2, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 4 },
-    { name: 'Italian', price: 6, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 5 },
-    { name: 'Chicken', price: 5, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 1 },
-    { name: 'Burger', price: 5, image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg', rating: 2 }
-  ];
-
-  filteredProducts: Product[] = [...this.products];
+  products: Product[] = [];
+  filteredProducts: Product[] = [];
   paginatedProducts: Product[] = [];
   searchTerm: string = '';
-  selectedProducts: { product: Product, quantity: number }[] = [];
+  selectedProducts: { product: Product }[] = [];
 
   categories = ['Drinks', 'Breakfast', 'Lunch', 'Dinner', 'Hot Drinks', 'Tea', 'Coffee', 'Cold Drinks'];
 
@@ -39,19 +33,21 @@ export class MenuComponent implements OnInit {
   constructor(private apiservice: ApiService) { }
 
   ngOnInit(): void {
-    this.updatePaginatedProducts();
-
-    const itemData = {
-      item_name: 'Pizza',
-      item_price: 10.99,
-      item_category: 'Food',
-      item_pic: 'pizza.jpg',
-      item_description: 'Delicious pizza with cheese and toppings',
-      restaurant_id: 12345,
-      restaurant_name: 'Pizza Place'
-    };
-    this.apiservice.test_Post(itemData).subscribe(response => {
+    const resId = sessionStorage.getItem('restaurant_id');
+    this.apiservice.getMenu(resId).subscribe((response: any[]) => {
+      this.products = response.map(item => ({
+        id:item._id,
+        name: item.item_name,
+        price: item.item_price,
+        rating: item.item_rating,
+        image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg',
+        quantity: 0,
+        selected: false
+      }));
+      this.filteredProducts = [...this.products];
+      this.updatePaginatedProducts();
       console.log(response);
+      console.log(this.products);
     });
   }
 
@@ -75,9 +71,12 @@ export class MenuComponent implements OnInit {
   }
 
   selectProduct(product: Product) {
-    product.selected = !product.selected;
-    if (product.selected) {
-      this.selectedProducts.push({ product, quantity: 1 });
+    if (product.quantity > 0) {
+      product.selected = !product.selected;
+    }
+
+    if (product.selected && product.quantity > 0) {
+      this.selectedProducts.push({ product});
       console.log(product);
     } else {
       const index = this.selectedProducts.findIndex(p => p.product.name === product.name);
@@ -87,11 +86,24 @@ export class MenuComponent implements OnInit {
     }
   }
 
+  increaseQuantity(product: Product) {
+    if (!product.selected) {
+      product.quantity = (product.quantity || 0) + 1;
+    }
+  }
+
+  decreaseQuantity(product: Product) {
+    if (product.quantity && product.quantity > 0 && !product.selected) {
+      product.quantity--;
+    }
+  }
+
   onSubmit() {
     console.log(this.selectedProducts);
-  }
-  categories_s(category:any){
-    console.log(category)
 
+  }
+
+  categories_s(category: any) {
+    console.log(category);
   }
 }

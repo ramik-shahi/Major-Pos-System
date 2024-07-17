@@ -5,7 +5,18 @@
                   (click)="selectProduct(product)" [class.selected]="product.selected">
           <img mat-card-image [src]="product.image" alt="{{product.name}}" class="image">
           <mat-card-content>
-            <h2>{{product.name}}</h2>
+            <div class="product-details">
+              <h2>{{product.name}}</h2>
+              <div class="quantity-controls">
+                <button mat-icon-button color="accent" (click)="decreaseQuantity(product); $event.stopPropagation();">
+                  <mat-icon>remove</mat-icon>
+                </button>
+                <span>{{product.quantity}}</span>
+                <button mat-icon-button color="accent" (click)="increaseQuantity(product); $event.stopPropagation();">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </div>
             <p>{{product.price | currency}}</p>
             <app-start-rating [rating]="product.rating || 0"></app-start-rating>
           </mat-card-content>

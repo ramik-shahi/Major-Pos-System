@@ -50,7 +50,11 @@ export class OrderComponent implements OnInit {
         });
       }
     });
-
+    console.log('-------------------------')
+    console.log(tableOrdersMap);
+    console.log('-------------------------')
+    console.log(tableOrdersMap.values());
+    console.log('-------------------------')
     this.orders = Array.from(tableOrdersMap.values());
   }
 }

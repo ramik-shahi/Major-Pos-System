@@ -31,6 +31,12 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}user/${restaurant_id}`)
 
   }
+  getUserById(restaurant_id:any,user_id:any):Observable<any>{
+    return this.http.get(`${this.apiUrl}user/${restaurant_id}/${user_id}`)
+
+  }
+
+
   getMenu(restaurant_id:any):Observable<any>{
     return this.http.get(`${this.apiUrl}menu/${restaurant_id}`)
 

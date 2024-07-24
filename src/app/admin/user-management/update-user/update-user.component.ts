@@ -1,18 +1,18 @@
 
-import { Component,Inject  } from '@angular/core';
+import { Component,Inject, OnInit  } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EmployeeForm } from '../../interface/employee.model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-
+import { ApiService } from 'src/service/api.service';
 @Component({
   selector: 'app-update-user',
   templateUrl: './update-user.component.html',
   styleUrls: ['./update-user.component.css']
 })
-export class UpdateUserComponent {
+export class UpdateUserComponent implements OnInit{
   positions = ['Manager', 'Developer', 'Designer', 'Analyst', 'Tester'];
   employeeForm: FormGroup;
-  constructor(private fb:FormBuilder,  public dialogRef: MatDialogRef<UpdateUserComponent>,
+  constructor(private fb:FormBuilder,private api:ApiService,  public dialogRef: MatDialogRef<UpdateUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { id: number }){
     this.employeeForm=fb.group({
       name: [''],
@@ -27,6 +27,14 @@ export class UpdateUserComponent {
 
     });
 
+  }
+  ngOnInit(): void {
+    const resId = sessionStorage.getItem('restaurant_id');
+    const user_id = sessionStorage.getItem('user_id');
+    
+    this.api.getUserById(resId,user_id).subscribe(res=>{
+      console.log(res)
+    })
   }
 
   onSubmit() {

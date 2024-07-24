@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from 'src/service/api.service';
-import { Order } from '../interface/order';
 import { SocketService } from 'src/app/services/socket/scoket.service'; 
 
 @Component({
@@ -10,39 +9,26 @@ import { SocketService } from 'src/app/services/socket/scoket.service';
 })
 export class OrderComponent implements OnInit, OnDestroy {
   resid: any = sessionStorage.getItem('restaurant_id');
-  role:any=sessionStorage.getItem('role')
+  role:any=sessionStorage.getItem('role');
   orders: any[] = []; // This will hold the transformed orders
-  Sorders:any[]=[];
-  table:any[]=[];
-  accept_order=false;
+  Sorders: any[] = [];
+  table: any[] = [];
+  accept_order = false;
   
   displayedColumns: string[] = ['order', 'cards'];
   private socketSubscription: any;
+  private statusSubscription: any;
 
   constructor(private api: ApiService, private socketService: SocketService) {}
 
   ngOnInit(): void {
-
-    // this.api.getOrderoftables(this.resid,'01').subscribe(
-    //   (res: any[]) => {
-    //     console.log('table:', res);
-    //     this.table = res;
-       
-    //   },
-    //   error => {
-    //     console.error('Error fetching orders:', error);
-    //   }
-    // );
-
-
     if (this.resid) {
+      // Fetch initial orders
       this.api.getOrder(this.resid).subscribe(
         (res: any[]) => {
           console.log('Initial orders fetched:', res);
           this.orders = res;
-          console.log(res)
-         // Load initial orders
-         this.Sorders=this.orders;
+          this.Sorders = this.orders;
           this.transformOrders(this.orders); // Transform loaded orders
         },
         error => {
@@ -50,13 +36,19 @@ export class OrderComponent implements OnInit, OnDestroy {
         }
       );
   
+      // Join the socket room
       this.socketService.joinRoom(this.resid);
   
-      this.socketService.onNewOrder().subscribe((newOrder: any) => {
+      // Subscribe to new orders
+      this.socketSubscription = this.socketService.onNewOrder().subscribe((newOrder: any) => {
         console.log('New order received in component:', newOrder);
-  
-        // Handle new order
         this.handleNewOrder(newOrder);
+      });
+
+      // Subscribe to new status updates
+      this.statusSubscription = this.socketService.onNewStatus().subscribe((newStatus: any) => {
+        console.log('New status received in component:', newStatus);
+        this.handleNewStatus(newStatus);
       });
     }
   }
@@ -65,8 +57,17 @@ export class OrderComponent implements OnInit, OnDestroy {
     // Update orders with the new order
     this.Sorders.push(newOrder);
     console.log(this.Sorders);
-    // Transform the updated orders
     this.transformOrders(this.Sorders);
+  }
+
+  handleNewStatus(newStatus: any) {
+    // Update orders with the new status
+    const index = this.Sorders.findIndex(order => order._id === newStatus._id);
+    if (index !== -1) {
+      this.Sorders[index] = newStatus;
+      console.log(this.Sorders);
+      this.transformOrders(this.Sorders);
+    }
   }
 
   ngOnDestroy(): void {
@@ -76,10 +77,12 @@ export class OrderComponent implements OnInit, OnDestroy {
     if (this.socketSubscription) {
       this.socketSubscription.unsubscribe();
     }
+    if (this.statusSubscription) {
+      this.statusSubscription.unsubscribe();
+    }
   }
 
   transformOrders(orders: any[]): void {
-
     if (!Array.isArray(orders)) {
       orders = [orders]; // Wrap in array if it's a single order
     }
@@ -91,18 +94,19 @@ export class OrderComponent implements OnInit, OnDestroy {
       if (tableOrdersMap.has(tableNo)) {
         const existingOrder = tableOrdersMap.get(tableNo);
         existingOrder.cards.push({
+          order_id: order._id,
           item_name: order.item_name,
           image: order.image,
-          order_status:order.order_status
+          order_status: order.order_status
         });
       } else {
         tableOrdersMap.set(tableNo, {
           order: `Table ${tableNo} `,
           cards: [{
+            order_id: order._id,
             item_name: order.item_name,
             image: order.image,
-            order_status:order.order_status
-
+            order_status: order.order_status
           }]
         });
       }
@@ -112,8 +116,18 @@ export class OrderComponent implements OnInit, OnDestroy {
     console.log("-----------------")
     this.orders = Array.from(tableOrdersMap.values());
   }
-  accept(){
-   this.accept_order=true;
-   console.log(this.accept_order)
+
+  accept(order_id: any) {
+    const data = {
+      restaurant_id: this.resid,
+      _id: order_id,
+      status: 'AcceptOrder'
+    };
+    console.log(data);
+    console.log("this is the order_id", order_id);
+    this.accept_order = true;
+    this.api.UpdateOrder(data).subscribe(res => {
+      console.log(res);
+    });
   }
 }

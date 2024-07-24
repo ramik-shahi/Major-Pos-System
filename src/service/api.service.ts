@@ -60,5 +60,9 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}order/${restaurant_id}/${table_name}`)
 
   }
+  UpdateOrder(data:any):Observable<any>{
+   
+    return this.http.post(`${this.apiUrl}order/statusupdate`,data)
 
+  }
 }

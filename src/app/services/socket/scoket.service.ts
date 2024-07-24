@@ -8,6 +8,7 @@ import { io, Socket } from 'socket.io-client';
 export class SocketService {
   private socket: Socket;
   private newOrderSubject = new Subject<any>();
+  private newStatusSubject = new Subject<any>();
 
   constructor() {
     this.socket = io('http://localhost:3002');
@@ -20,7 +21,17 @@ export class SocketService {
       console.log('Received newOrder event:', order);
       this.newOrderSubject.next(order);
     });
+
+    this.socket.on('newStatus', (status) => {
+      console.log('Received newOrder event:', status);
+      this.newStatusSubject.next(status);
+    });
+
+
+
   }
+
+ 
 
   joinRoom(roomId: string) {
     this.socket.emit('joinRoom', roomId);
@@ -32,6 +43,9 @@ export class SocketService {
 
   onNewOrder(): Observable<any> {
     return this.newOrderSubject.asObservable();
+  }
+  onNewStatus(): Observable<any> {
+    return this.newStatusSubject.asObservable();
   }
 }
 

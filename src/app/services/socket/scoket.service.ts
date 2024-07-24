@@ -10,7 +10,7 @@ export class SocketService {
   private newOrderSubject = new Subject<any>();
 
   constructor() {
-    this.socket = io('http://localhost:3000');
+    this.socket = io('http://localhost:3002');
     this.socket.on('connect', () => {
       console.log('Connected to socket server');
     });

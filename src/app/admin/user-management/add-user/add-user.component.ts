@@ -44,33 +44,71 @@ export class AddUserComponent {
 
 
   saveChanges(): void {
-    const userData = {
-        name: this.employeeForm.value.name,
-        email: this.employeeForm.value.email,
-        password: this.employeeForm.value.password,
-        phone_no: this.employeeForm.value.phoneNumber,
-        image: this.employeeForm.value.image,
-        position: this.employeeForm.value.position,
-        pan_no: this.employeeForm.value.panNumber,
-        address: this.employeeForm.value.address,
-        restaurant_id: sessionStorage.getItem('restaurant_id'),
-        restaurant_name: 'hello'
+    if (!this.employeeForm) {
+      console.error('Form is not initialized');
+      return;
+    }
+  
+    const controls = {
+      nameControl: this.employeeForm.get('name'),
+      addressControl: this.employeeForm.get('address'),
+      emailControl: this.employeeForm.get('email'),
+      passwordControl: this.employeeForm.get('password'),
+      phoneNumberControl: this.employeeForm.get('phoneNumber'),
+      imageControl: this.employeeForm.get('image'),
+      panNumberControl: this.employeeForm.get('panNumber'),
+      positionControl: this.employeeForm.get('position')
     };
+  
+    // console.log('Form Controls:', {
+    //   nameControl: controls.nameControl?.value || 'Control is null',
+    //   addressControl: controls.addressControl?.value || 'Control is null',
+    //   emailControl: controls.emailControl?.value || 'Control is null',
+    //   passwordControl: controls.passwordControl?.value || 'Control is null',
+    //   phoneNumberControl: controls.phoneNumberControl?.value || 'Control is null',
+    //   imageControl: controls.imageControl?.value || 'Control is null',
+    //   panNumberControl: controls.panNumberControl?.value || 'Control is null',
+    //   positionControl: controls.positionControl?.value || 'Control is null'
+    // });
+  
+    if (Object.values(controls).some(control => control === null)) {
+      console.error('One or more form controls are missing');
+      return;
+    }
+    
+    const restaurant_id = sessionStorage.getItem('restaurant_id');
 
-    console.log("User data to save:", userData);
+    const userform = new FormData(); 
+    userform.append('name', controls.nameControl?.value || '');
+    userform.append('address', controls.addressControl?.value || '');
+    userform.append('email', controls.emailControl?.value || '');
+    userform.append('password', controls.passwordControl?.value || '');
+    userform.append('phoneNumber', controls.phoneNumberControl?.value || '');
+    
+    if (controls.imageControl?.value) {
+      userform.append('image', controls.imageControl.value);
+    } else {
+      console.error('Image control is missing or empty');
+    }
+    
+    userform.append('panNumber', controls.panNumberControl?.value || '');
+    userform.append('position', controls.positionControl?.value || '');
+    userform.append('restaurant_id',restaurant_id!);
+    userform.append('restaurant_name', 'hello');
 
-    this.api.registration(userData).subscribe({
+
+    this.api.addemployee(userform).subscribe({
         next: (res) => {
             console.log("Registration response:", res);
-            // Handle success scenario
+            this.dialogRef.close();
         },
         error: (err) => {
             console.error("Registration error:", err);
-            // Handle error scenario
+
         }
     });
 
-    this.dialogRef.close();
+    
 }
 
 

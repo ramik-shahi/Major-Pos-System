@@ -49,7 +49,7 @@ export class AddUserComponent {
         email: this.employeeForm.value.email,
         password: this.employeeForm.value.password,
         phone_no: this.employeeForm.value.phoneNumber,
-        pic: this.employeeForm.value.image,
+        image: this.employeeForm.value.image,
         position: this.employeeForm.value.position,
         pan_no: this.employeeForm.value.panNumber,
         address: this.employeeForm.value.address,

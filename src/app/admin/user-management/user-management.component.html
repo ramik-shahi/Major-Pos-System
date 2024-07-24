@@ -61,7 +61,7 @@
         <!-- <button mat-icon-button (click)="editEmployee(employee.id)">
           <mat-icon>edit</mat-icon>
         </button> -->
-        <button mat-raised-button  class="custom-button" (click)="updateUser(employee.id)" >Edit</button>
+        <button mat-raised-button  class="custom-button" (click)="updateUser(employee._id)" >Edit</button>
       </td>
     </ng-container>
 
@@ -69,7 +69,7 @@
       <th mat-header-cell *matHeaderCellDef> delete </th>
       <td mat-cell *matCellDef="let employee">
 
-        <button mat-raised-button  class="custom-button" (click)="deleteEmployee(employee.id)" >delete</button>
+        <button mat-raised-button  class="custom-button" (click)="deleteEmployee(employee._id)" >delete</button>
       </td>
     </ng-container>
 

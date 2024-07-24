@@ -10,10 +10,12 @@ import { ApiService } from 'src/service/api.service';
   styleUrls: ['./update-user.component.css']
 })
 export class UpdateUserComponent implements OnInit{
-  positions = ['Manager', 'Developer', 'Designer', 'Analyst', 'Tester'];
+  positions = ['waiter', 'manager', 'Designer', 'Analyst', 'Tester'];
   employeeForm: FormGroup;
+  userId: any;
   constructor(private fb:FormBuilder,private api:ApiService,  public dialogRef: MatDialogRef<UpdateUserComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { id: number }){
+    @Inject(MAT_DIALOG_DATA) public data: { userId: any } ){
+      this.userId = data.userId; // Access the passed userId
     this.employeeForm=fb.group({
       name: [''],
       address: [''],
@@ -29,12 +31,31 @@ export class UpdateUserComponent implements OnInit{
 
   }
   ngOnInit(): void {
+    console.log('User ID in ngOnInit:', this.userId);
     const resId = sessionStorage.getItem('restaurant_id');
-    const user_id = sessionStorage.getItem('user_id');
-    
-    this.api.getUserById(resId,user_id).subscribe(res=>{
-      console.log(res)
-    })
+    if (this.userId && resId) {
+      this.api.getUserById(resId, this.userId).subscribe(res => {
+        // Assuming `res` is an array and you need the first item
+        const user = res[0]; 
+        if (user) {
+          // Populate the form with user data
+          this.employeeForm.patchValue({
+            name: user.user_name,
+            address: user.address,
+            email: user.email,
+            password: '',
+            phoneNumber: user.user_phone_no,
+            image: '',
+            panNumber: user.pan_no,
+            position: user.user_role
+          });
+        } else {
+          console.error('User not found in the response');
+        }
+      }, error => {
+        console.error('Error fetching user data:', error);
+      });
+    }
   }
 
   onSubmit() {

@@ -76,7 +76,8 @@ export class UserManagementComponent implements AfterViewInit, OnInit {
 
   updateUser(id: any): void {
     const dialogRef = this.dialog.open(UpdateUserComponent, {
-      width: '500px' // Adjust width as needed
+      width: '500px', // Adjust width as needed
+      data: { userId: id } // Pass the data to the dialog
     });
 
     dialogRef.afterClosed().subscribe(result => {

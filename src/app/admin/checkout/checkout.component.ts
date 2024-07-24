@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent {
+  selectedTable!: string;
+
+  onTableSelected(tableId: string) {
+    this.selectedTable = tableId;
+  }
 
 }

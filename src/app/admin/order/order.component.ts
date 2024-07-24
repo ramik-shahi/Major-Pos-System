@@ -12,6 +12,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   resid: any = sessionStorage.getItem('restaurant_id');
   orders: any[] = []; // This will hold the transformed orders
   Sorders:any[]=[];
+  table:any[]=[];
   
   displayedColumns: string[] = ['order', 'cards'];
   private socketSubscription: any;
@@ -19,6 +20,19 @@ export class OrderComponent implements OnInit, OnDestroy {
   constructor(private api: ApiService, private socketService: SocketService) {}
 
   ngOnInit(): void {
+
+    // this.api.getOrderoftables(this.resid,'01').subscribe(
+    //   (res: any[]) => {
+    //     console.log('table:', res);
+    //     this.table = res;
+       
+    //   },
+    //   error => {
+    //     console.error('Error fetching orders:', error);
+    //   }
+    // );
+
+
     if (this.resid) {
       this.api.getOrder(this.resid).subscribe(
         (res: any[]) => {

@@ -44,4 +44,10 @@ export class ApiService {
 
   }
 
+  getOrderoftables(restaurant_id:any,table_name:any):Observable<any>{
+   
+    return this.http.get(`${this.apiUrl}order/${restaurant_id}/${table_name}`)
+
+  }
+
 }

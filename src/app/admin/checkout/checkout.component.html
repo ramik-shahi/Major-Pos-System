@@ -1,10 +1,10 @@
 <!-- app.component.html -->
 <div class="main-container">
     <div class="table-cards-wrapper">
-      <app-table-cards></app-table-cards>
+      <app-table-cards (tableSelected)="onTableSelected($event)"></app-table-cards>
     </div>
     <div class="checkout-card-wrapper">
-      <app-table-checkout-card></app-table-checkout-card>
+      <app-table-checkout-card [selectedTable]="selectedTable"></app-table-checkout-card>
     </div>
   </div>
   

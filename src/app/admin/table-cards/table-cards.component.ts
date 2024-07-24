@@ -1,5 +1,5 @@
 // table-cards.component.ts
-import { Component } from '@angular/core';
+import { Component,Output, EventEmitter  } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./table-cards.component.css']
 })
 export class TableCardsComponent {
+  @Output() tableSelected = new EventEmitter<string>();
   tables = [
     { number: '01', amount: 10 },
     { number: '02', amount: 50 },
@@ -24,5 +25,11 @@ export class TableCardsComponent {
   addOrder(table_number:any){
     console.log(table_number)
     this.router.navigate([`/admin/menu/${table_number}`]);
+  }
+
+  viewOrder(table_number:any){
+    console.log("the order you want view is of table",table_number)
+    this.tableSelected.emit(table_number);
+    
   }
 }

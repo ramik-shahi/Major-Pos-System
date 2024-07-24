@@ -20,10 +20,16 @@
             <mat-card-header>
               <mat-card-title class="card-title">{{ card.item_name }}</mat-card-title>
             </mat-card-header>
-            <div class="button-container">
+            <div class="button-container"  *ngIf="role === 'waiter' && card.order_status === 'Pending'">
               <button mat-button class="pending-button">Pending</button>
               <button mat-button class="cancel-button">Cancel</button>
             </div>
+
+            <div class="button-container"  *ngIf="role === 'kitchen' && card.order_status === 'Pending'">
+              <button mat-button class="pending-button" (click)="accept()">Accept Order</button>
+              
+            </div>
+
           </mat-card>
         </div>
       </td>

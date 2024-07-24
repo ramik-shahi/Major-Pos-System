@@ -62,6 +62,12 @@ export class AuthServiceService {
 
       }
 
+      else if(this.currentUserRole=='kitchen'){
+        this.currentUserRole='kitchen'
+        this.router.navigate(['/admin/order']);
+
+      }
+
     })
 
 

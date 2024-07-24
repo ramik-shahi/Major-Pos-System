@@ -10,9 +10,11 @@ import { SocketService } from 'src/app/services/socket/scoket.service';
 })
 export class OrderComponent implements OnInit, OnDestroy {
   resid: any = sessionStorage.getItem('restaurant_id');
+  role:any=sessionStorage.getItem('role')
   orders: any[] = []; // This will hold the transformed orders
   Sorders:any[]=[];
   table:any[]=[];
+  accept_order=false;
   
   displayedColumns: string[] = ['order', 'cards'];
   private socketSubscription: any;
@@ -38,6 +40,7 @@ export class OrderComponent implements OnInit, OnDestroy {
         (res: any[]) => {
           console.log('Initial orders fetched:', res);
           this.orders = res;
+          console.log(res)
          // Load initial orders
          this.Sorders=this.orders;
           this.transformOrders(this.orders); // Transform loaded orders
@@ -89,18 +92,28 @@ export class OrderComponent implements OnInit, OnDestroy {
         const existingOrder = tableOrdersMap.get(tableNo);
         existingOrder.cards.push({
           item_name: order.item_name,
-          image: order.image
+          image: order.image,
+          order_status:order.order_status
         });
       } else {
         tableOrdersMap.set(tableNo, {
           order: `Table ${tableNo} `,
           cards: [{
             item_name: order.item_name,
-            image: order.image
+            image: order.image,
+            order_status:order.order_status
+
           }]
         });
       }
     });
+    console.log("-----------------")
+    console.log(this.orders)
+    console.log("-----------------")
     this.orders = Array.from(tableOrdersMap.values());
+  }
+  accept(){
+   this.accept_order=true;
+   console.log(this.accept_order)
   }
 }

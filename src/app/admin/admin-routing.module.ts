@@ -28,19 +28,20 @@ const routes: Routes = [
 
     ] },
 
-    {path:'menu/:table_number',component:MenuComponent,data: { title: 'Menu' } },
+    {path:'menu/:table_number',component:MenuComponent,canActivate:[authGuard],data: { title: 'Menu' ,expectedRoles: ['admin', 'waiter']} },
     {
       path: 'menu',
       redirectTo: 'menu/default', // Redirect to default if no table_number provided
       pathMatch: 'full'
+
     },
 
-    {path:'order',component:OrderComponent,data: { title: 'Order' } },
-     { path: 'Take-Order/Checkout', component:CheckoutComponent },
-    { path: 'catogory', component:CategoryComponent },
-    { path: 'add-catogory', component:AddCategoryComponent },
-    { path: 'table', component:TableComponent },
-    {path:'payment',component:PaymentComponent},
+    {path:'order',component:OrderComponent,canActivate:[authGuard],data: { title: 'Order',expectedRoles: ['admin', 'waiter','kitchen'] } },
+     { path: 'Take-Order/Checkout', component:CheckoutComponent,canActivate:[authGuard],data: { title: 'Take-Order/Checkout',expectedRoles: ['admin', 'waiter']} },
+    { path: 'catogory', component:CategoryComponent,canActivate:[authGuard],data: { title: 'catogory',expectedRoles: ['admin', 'waiter']} },
+    { path: 'add-catogory', component:AddCategoryComponent,canActivate:[authGuard],data: { title: 'add-catogory',expectedRoles: ['admin', 'waiter']}  },
+    { path: 'table', component:TableComponent,canActivate:[authGuard],data: { title: 'table',expectedRoles: ['admin', 'waiter']}  },
+    {path:'payment',component:PaymentComponent,canActivate:[authGuard],data: { title: 'payment',expectedRoles: ['admin', 'waiter']} },
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 
 

@@ -19,12 +19,12 @@ export class LoginComponent implements OnInit {
   constructor(private fb:FormBuilder,private _login:LoginServiceService,private route:Router,private auth:AuthServiceService,private apiservice:ApiService){}
 
   ngOnInit(): void {
-   // sessionStorage.setItem('isAdmin',"false")
+   
     this.loginForm=this.fb.group({
       email:['',[Validators.required]],
       password:['',[Validators.required, Validators.minLength(6)]]
     });
-    console.log(sessionStorage.getItem('isAdmin'))
+    
 
 
   }

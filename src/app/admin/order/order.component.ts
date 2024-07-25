@@ -18,6 +18,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['order', 'cards'];
   private socketSubscription: any;
   private statusSubscription: any;
+  private deleteSubscription: any;
 
   constructor(private api: ApiService, private socketService: SocketService) {}
 
@@ -50,6 +51,14 @@ export class OrderComponent implements OnInit, OnDestroy {
         console.log('New status received in component:', newStatus);
         this.handleNewStatus(newStatus);
       });
+
+      //subscribe to delete order
+      this.deleteSubscription=this.socketService.onDeleteOrder().subscribe((orderId:any)=>{
+        console.log('Order deletion received:', orderId);
+        this.handleDeleteOrder(orderId);
+       
+        
+      })
     }
   }
   
@@ -68,6 +77,12 @@ export class OrderComponent implements OnInit, OnDestroy {
       console.log(this.Sorders);
       this.transformOrders(this.Sorders);
     }
+  }
+
+  handleDeleteOrder(orderId: any) {
+    this.Sorders = this.Sorders.filter(order => order._id !== orderId);
+    console.log('Orders after deletion:', this.Sorders);
+    this.transformOrders(this.Sorders);
   }
 
   ngOnDestroy(): void {
@@ -93,14 +108,15 @@ export class OrderComponent implements OnInit, OnDestroy {
 
       if (tableOrdersMap.has(tableNo)) {
         const existingOrder = tableOrdersMap.get(tableNo);
-        existingOrder.cards.push({
+        if((this.role=='waiter' || order.order_status!='Done')&& (order.order_status!='Served'))
+          {existingOrder.cards.push({
           order_id: order._id,
           item_name: order.item_name,
           image: order.image,
           order_status: order.order_status
-        });
+        });}
       } else {
-        tableOrdersMap.set(tableNo, {
+        if((this.role=='waiter' || order.order_status!='Done')&& (order.order_status!='Served')){ tableOrdersMap.set(tableNo, {
           order: `Table ${tableNo} `,
           cards: [{
             order_id: order._id,
@@ -108,7 +124,7 @@ export class OrderComponent implements OnInit, OnDestroy {
             image: order.image,
             order_status: order.order_status
           }]
-        });
+        });}
       }
     });
     console.log("-----------------")
@@ -129,5 +145,76 @@ export class OrderComponent implements OnInit, OnDestroy {
     this.api.UpdateOrder(data).subscribe(res => {
       console.log(res);
     });
+  }
+
+
+  complete(order_id:any){
+
+    const data = {
+      restaurant_id: this.resid,
+      _id: order_id,
+      status: 'Waiting' //waiting for waiter to pick order
+    };
+    console.log(data);
+    console.log("this is the order_id", order_id);
+    this.accept_order = true;
+    this.api.UpdateOrder(data).subscribe(res => {
+      console.log(res);
+    });
+
+
+  }
+  Cancel(order_id:any){
+
+    this.api.deleteOrder(this.resid,order_id).subscribe(res=>{
+      console.log(res);
+    })
+  }
+
+  cancleFromKitchen(order_id:any){
+    const data = {
+      restaurant_id: this.resid,
+      _id: order_id,
+      status: 'Cancle' // cancle from kitchen
+    };
+    console.log(data);
+    console.log("this is the order_id", order_id);
+    this.accept_order = true;
+    this.api.UpdateOrder(data).subscribe(res => {
+      console.log(res);
+    });
+
+  }
+
+
+  pick(order_id:any){
+    const data = {
+      restaurant_id: this.resid,
+      _id: order_id,
+      status: 'Done' // order picked
+    };
+    console.log(data);
+    console.log("this is the order_id", order_id);
+    this.accept_order = true;
+    this.api.UpdateOrder(data).subscribe(res => {
+      console.log(res);
+    });
+
+  }
+
+
+  served(order_id:any){
+    const data = {
+      restaurant_id: this.resid,
+      _id: order_id,
+      status: 'Served' 
+    };
+    console.log(data);
+    console.log("this is the order_id", order_id);
+    this.accept_order = true;
+    this.api.UpdateOrder(data).subscribe(res => {
+      console.log(res);
+    });
+
   }
 }

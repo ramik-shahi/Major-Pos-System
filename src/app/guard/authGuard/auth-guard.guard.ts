@@ -15,8 +15,12 @@ export const authGuard: CanActivateFn = (route, state) => {
 
 
   const currentUserRole=authService.getRole();
+  console.log(authService.isAuthenticated())
+    console.log(expectedRoles.includes(currentUserRole))//this is becomming flase when i refress
 
   if (authService.isAuthenticated() && expectedRoles.includes(currentUserRole)) {
+    console.log(authService.isAuthenticated())
+    console.log(expectedRoles.includes(currentUserRole))
     return true;
   } else {
     router.navigate(['/login']);

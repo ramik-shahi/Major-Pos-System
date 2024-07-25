@@ -65,4 +65,7 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}order/statusupdate`,data)
 
   }
+  deleteOrder(restaurant_id:any,id:any):Observable<any>{
+    return this.http.get(`${this.apiUrl}order/delete/${restaurant_id}/${id}`)
+  }
 }

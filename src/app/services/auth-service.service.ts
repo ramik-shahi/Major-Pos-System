@@ -75,10 +75,20 @@ export class AuthServiceService {
 
   }
   getRole() {
+    this.currentUserRole = sessionStorage.getItem('role') || ''
+
+    if(this.currentUserRole=='manager'){
+        this.currentUserRole='admin'
+      }
+
+    sessionStorage.setItem('role', this.currentUserRole);
     return this.currentUserRole;
+    
   }
   isAuthenticated(): boolean {
-    return this.currentUserRole !== null;
+    return this.currentUserRole !== null && this.currentUserRole !== '';
   }
+
+
 
 }

@@ -9,6 +9,7 @@ export class SocketService {
   private socket: Socket;
   private newOrderSubject = new Subject<any>();
   private newStatusSubject = new Subject<any>();
+  private deleteOrder = new Subject<any>();
 
   constructor() {
     this.socket = io('http://localhost:3002');
@@ -26,6 +27,12 @@ export class SocketService {
       console.log('Received newOrder event:', status);
       this.newStatusSubject.next(status);
     });
+
+    this.socket.on('orderDeleted',(status)=>{
+      console.log('delete order', status);
+      this.deleteOrder.next(status)
+
+    })
 
 
 
@@ -46,6 +53,9 @@ export class SocketService {
   }
   onNewStatus(): Observable<any> {
     return this.newStatusSubject.asObservable();
+  }
+  onDeleteOrder(): Observable<any>{
+    return this.deleteOrder.asObservable();
   }
 }
 

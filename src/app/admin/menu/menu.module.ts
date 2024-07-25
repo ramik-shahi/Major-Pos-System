@@ -10,12 +10,21 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { FormsModule } from '@angular/forms'; // Add this import
-import { MatPaginatorModule } from '@angular/material/paginator'; // Add this import
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MenuTableComponent } from './menu-table/menu-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { AddMenuComponent } from './add-menu/add-menu.component'; // Add this import
+import { ReactiveFormsModule } from '@angular/forms';
+import { UpdateMenuComponent } from './update-menu/update-menu.component'; 
 
 @NgModule({
   declarations: [
     MenuComponent,
-    StartRatingComponent
+    StartRatingComponent,
+    MenuTableComponent,
+    AddMenuComponent,
+    UpdateMenuComponent
   ],
   imports: [
     CommonModule,
@@ -25,9 +34,10 @@ import { MatPaginatorModule } from '@angular/material/paginator'; // Add this im
     MatIconModule,
     MatSliderModule,
     MatDividerModule,
+    ReactiveFormsModule,
     MatListModule,
     FormsModule, // Add this module
-    MatPaginatorModule // Add this module
+    MatPaginatorModule, MatTableModule, MatSortModule // Add this module
   ]
 })
 export class MenuModule { }

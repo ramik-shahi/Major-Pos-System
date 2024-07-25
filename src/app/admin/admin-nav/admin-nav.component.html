@@ -15,6 +15,10 @@
         Table
       </a>
 
+      <a mat-list-item *ngIf="isAdmin()" routerLink="/admin/menu-table" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        Menu Table
+      </a>
+
 
 
     </mat-nav-list>

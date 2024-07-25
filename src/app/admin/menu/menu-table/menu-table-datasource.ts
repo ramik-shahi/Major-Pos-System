@@ -2,49 +2,53 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
-import { ApiService } from 'src/service/api.service';
+import { Observable, of as observableOf, merge } from 'rxjs';
 
-export interface Employee {
-  user_name: string;
-  user_pic: string;
+
+// TODO: Replace this with your own data model type
+export interface MenuTableItem {
+  item_name: string;
   _id: number;
-  pan_no: string;
-  address: string;
-  user_phone_no: string;
-  user_role: string;
+  Description: string;
+  category_id: string;
+  categoryName?: string;
+
 }
 
+
+// TODO: replace this with real data from your application
+export let EXAMPLE_DATA: MenuTableItem[] = [
+  
+];
+
 /**
- * Data source for the Category view. This class should
+ * Data source for the MenuTable view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class CategoryDataSource extends DataSource<Employee> {
-  private dataSubject = new BehaviorSubject<Employee[]>([]);
+export class MenuTableDataSource extends DataSource<MenuTableItem> {
+  
+  data: MenuTableItem[] = EXAMPLE_DATA;
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
-  constructor(private api: ApiService) {
-    console.log('hello fromdatasource')
+  constructor(private api:any) {
+    
     super();
-    // const resId = sessionStorage.getItem('restaurant_id');
-    // this.fetchData(resId);
+    this.fetchdata();
   }
 
-  /**
-   * Fetch data from the API and update the dataSubject.
-   */
-  private fetchData(restaurantId: any): void {
-    this.api.getUser(restaurantId).subscribe(
-      (res: Employee[]) => {
-        this.dataSubject.next(res);
-      },
-      error => {
-        console.error('Error fetching data', error);
-        // Handle error appropriately
-      }
-    );
+  fetchdata(){
+    console.log("hello")
+    const resId = sessionStorage.getItem('restaurant_id');
+    this.api.getMenu(resId).subscribe((response: any[]) => {
+      EXAMPLE_DATA=response
+      console.log("---------------------------------")
+      console.log(EXAMPLE_DATA)
+      console.log("---------------------------------")
+      
+    })
+    
   }
 
   /**
@@ -52,13 +56,13 @@ export class CategoryDataSource extends DataSource<Employee> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<Employee[]> {
+  connect(): Observable<MenuTableItem[]> {
     if (this.paginator && this.sort) {
       // Combine everything that affects the rendered data into one update
       // stream for the data-table to consume.
-      return merge(this.dataSubject.asObservable(), this.paginator.page, this.sort.sortChange)
+      return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
         .pipe(map(() => {
-          return this.getPagedData(this.getSortedData([...this.dataSubject.getValue()]));
+          return this.getPagedData(this.getSortedData([...this.data ]));
         }));
     } else {
       throw Error('Please set the paginator and sort on the data source before connecting.');
@@ -66,18 +70,16 @@ export class CategoryDataSource extends DataSource<Employee> {
   }
 
   /**
-   * Called when the table is being destroyed. Use this function, to clean up
+   *  Called when the table is being destroyed. Use this function, to clean up
    * any open connections or free any held resources that were set up during connect.
    */
-  disconnect(): void {
-    this.dataSubject.complete();
-  }
+  disconnect(): void {}
 
   /**
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: Employee[]): Employee[] {
+  private getPagedData(data: MenuTableItem[]): MenuTableItem[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
@@ -90,7 +92,7 @@ export class CategoryDataSource extends DataSource<Employee> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: Employee[]): Employee[] {
+  private getSortedData(data: MenuTableItem[]): MenuTableItem[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -98,7 +100,7 @@ export class CategoryDataSource extends DataSource<Employee> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        case 'user_name': return compare(a.user_name, b.user_name, isAsc);
+        case 'name': return compare(a.item_name, b.item_name, isAsc);
         case 'id': return compare(+a._id, +b._id, isAsc);
         default: return 0;
       }

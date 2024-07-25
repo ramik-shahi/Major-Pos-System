@@ -26,7 +26,7 @@ export class UpdateMenuComponent implements OnInit {
       
       image:['null'],
       
-      position:['']
+      category:['']
 
       })
 
@@ -41,6 +41,29 @@ export class UpdateMenuComponent implements OnInit {
         this.category=res
       }
     )
+      
+    this.api.getMenuOne(resId,this.menuid).subscribe(res=>{
+     
+      const menu = res[0]; 
+      console.log("---------------")
+      console.log(res)
+      console.log("---------------")
+
+      if(res){
+        this.menuForm.patchValue({
+          name:res.item_name,
+          price:res.item_price,
+          description:res.item_description,
+          category:res.item_category
+          
+
+          
+          
+
+        })
+      }
+
+    })
    
   }
 

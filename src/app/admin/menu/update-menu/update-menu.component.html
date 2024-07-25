@@ -24,7 +24,7 @@
                     <input type="description" id="description" name="description" placeholder="Input" formControlName="description" class="form-control">
                 </div>
                 
-                <select id="position" name="position" formControlName="position" class="form-control">
+                <select id="category" name="category" formControlName="category" class="form-control">
                     <option value="" disabled selected>Select position</option>
                     <option *ngFor="let cat of category" [value]="cat._id">{{ cat.name}}</option>
                 </select>

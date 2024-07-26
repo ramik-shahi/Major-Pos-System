@@ -52,6 +52,9 @@ export class TableComponent implements AfterViewInit,OnInit {
 
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.api.getTable(this.resId).subscribe(res=>{
+        this.dataSource.data=res
+      })
       console.log('The dialog was closed');
       // Optionally handle dialog close event
     });
@@ -67,6 +70,19 @@ export class TableComponent implements AfterViewInit,OnInit {
       console.log('The dialog was closed');
       // Optionally handle dialog close event
     });
+  }
+
+  delete(id:any){
+    console.log(id)
+    this.api.deletetable(this.resId,id).subscribe(res=>{
+      console.log(res)
+      
+    })
+    this.api.getTable(this.resId).subscribe(res=>{
+      this.dataSource.data=res
+    })
+    
+
   }
 
 }

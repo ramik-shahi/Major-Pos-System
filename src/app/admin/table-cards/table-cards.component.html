@@ -1,16 +1,16 @@
-<!-- table-cards.component.html -->
 <div class="table-cards-container">
-    <mat-card *ngFor="let table of tables" class="table-card">
-      <mat-card-header>
-        <mat-card-title>{{ table.table_name }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>${{ table.amount }}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="addOrder( table.table_name)">Add Order</button>
-        <button mat-raised-button color="primary" (click)="viewOrder( table.table_name)">View Order</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-  
+  <mat-card *ngFor="let table of tables" class="table-card">
+    <mat-card-header>
+      <mat-card-title>{{ table.table_name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="table-amount">${{ table.amount }}</p>
+    </mat-card-content>
+    <mat-card-actions class="card-actions">
+      <div *ngIf="role === 'waiter'">
+        <button mat-raised-button color="primary" (click)="addOrder(table.table_name)">Add Order</button>
+      </div>
+      <button mat-raised-button color="accent" (click)="viewOrder(table.table_name)">View Order</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,16 +1,66 @@
-/* table-cards.component.css */
 .table-cards-container {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px; /* Increased gap for better spacing */
+  justify-content: center; /* Center the cards in the container */
+  padding: 24px; /* Padding around the container */
+  box-sizing: border-box;
+  background-color: #f9f9f9; /* Light background for better contrast */
+}
+
+.table-card {
+  flex: 1 1 300px; /* Flex settings for responsive layout */
+  max-width: 100%;
+  min-width: 280px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto; /* Adjust height for content */
+  border: 1px solid #ddd; /* Border for card definition */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  background-color: #fff; /* White background for cards */
+  padding: 16px; /* Padding inside the card */
+  transition: transform 0.3s; /* Smooth transition for hover effect */
+}
+
+.table-card:hover {
+  transform: translateY(-5px); /* Hover effect to lift the card */
+}
+
+.table-card mat-card-header {
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee; /* Divider between header and content */
+  margin-bottom: 16px;
+}
+
+.table-amount {
+  font-size: 1.2em;
+  color: #555;
+  font-weight: bold;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between; /* Space between buttons */
+  margin-top: 16px;
+}
+
+.card-actions button {
+  min-width: 120px; /* Minimum button width for consistency */
+}
+
+@media (max-width: 768px) {
   .table-card {
-    flex: 1;
-    min-width: 50%s;
-    height: 150px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex: 1 1 calc(50% - 24px); /* Two cards per row on tablets and above */
+    margin-bottom: 24px;
   }
-  
+}
+
+@media (max-width: 480px) {
+  .table-card {
+    flex: 1 1 calc(100% - 24px); /* One card per row on mobile devices */
+    margin-bottom: 24px;
+  }
+}

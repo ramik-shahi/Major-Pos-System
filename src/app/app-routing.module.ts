@@ -8,7 +8,7 @@ import { authGuard } from './guard/authGuard/auth-guard.guard';
 const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'', redirectTo:'/login',pathMatch:'full'},
-  {path:'admin',canActivate:[authGuard], data: { expectedRoles: ['admin', 'waiter','kitchen'] },
+  {path:'admin',canActivate:[authGuard], data: { expectedRoles: ['admin', 'waiter','kitchen','reception'] },
     loadChildren:()=>
       import('./admin/admin.module').then(m=>m.AdminModule)
   },

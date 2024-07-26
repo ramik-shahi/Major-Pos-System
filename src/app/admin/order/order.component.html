@@ -1,6 +1,5 @@
-<!-- your-table.component.html -->
 <div class="table-container">
-  <table mat-table [dataSource]="orders" class="mat-elevation-z8">
+  <table mat-table [dataSource]="orders" class="mat-elevation-z8 custom-table">
     <ng-container matColumnDef="order">
       <th mat-header-cell *matHeaderCellDef> Order </th>
       <td mat-cell *matCellDef="let order">
@@ -15,63 +14,43 @@
       <th mat-header-cell *matHeaderCellDef> Cards </th>
       <td mat-cell *matCellDef="let order">
         <div class="cards-container">
-          <mat-card class="card" *ngFor="let card of order.cards"  >
-            <!-- <p>card image: {{card.image}}</p> -->
-            <div class="item_image"><img mat-card-image [src]='"http://localhost:3001/Upload/"+card.image' alt="{{ card.item_name }}"></div>
+          <mat-card class="card" *ngFor="let card of order.cards">
+            <div class="item_image">
+              <img mat-card-image [src]='"http://localhost:3001/Upload/"+card.image' alt="{{ card.item_name }}">
+            </div>
             <mat-card-header>
-              <mat-card-title class="card-title">{{ card.item_name }}  </mat-card-title>
-              <mat-card-title class="card-title">Quantity={{card.order_qty}}  </mat-card-title>
-              
+              <mat-card-title class="card-title">{{ card.item_name }}</mat-card-title>
+              <mat-card-subtitle>Quantity: {{card.order_qty}}</mat-card-subtitle>
             </mat-card-header>
-            <div class="button-container"  *ngIf="role === 'waiter' && card.order_status === 'Pending'">
-              <button mat-button class="pending-button">Pending</button>
-              <button mat-button class="cancel-button" (click)="Cancel(card.order_id)">Cancel</button>
-
+            <div class="button-container" *ngIf="role === 'waiter' && card.order_status === 'Pending'">
+              <button mat-button class="action-button pending-button">Pending</button>
+              <button mat-button class="action-button cancel-button" (click)="Cancel(card.order_id)">Cancel</button>
             </div>
-
-            <div class="button-container"  *ngIf="role === 'waiter' && card.order_status === 'AcceptOrder'">
-              <button mat-button class="pending-button">IN Process</button>
-             
+            <div class="button-container" *ngIf="role === 'waiter' && card.order_status === 'AcceptOrder'">
+              <button mat-button class="action-button in-process-button">In Process</button>
             </div>
-
-            <div class="button-container"  *ngIf="role === 'waiter' && card.order_status === 'Waiting'">
-              <button mat-button class="pending-button" (click)="pick(card.order_id)">Your Order please come to pick</button>
+            <div class="button-container" *ngIf="role === 'waiter' && card.order_status === 'Waiting'">
+              <button mat-button class="action-button ready-button" (click)="pick(card.order_id)">Ready for Pickup</button>
             </div>
-
-            <div class="button-container"  *ngIf="role === 'waiter' && card.order_status === 'Done'">
-              <button mat-button class="pending-button" (click)="served(card.order_id)">Served</button>
-             
+            <div class="button-container" *ngIf="role === 'waiter' && card.order_status === 'Done'">
+              <button mat-button class="action-button served-button" (click)="served(card.order_id)">Served</button>
             </div>
-
-            <div class="button-container"  *ngIf="role === 'waiter' && card.order_status === 'Cancle'">
-              <button mat-button class="pending-button" (click)="Cancel(card.order_id)">Your order has been Cancle</button>
-             
+            <div class="button-container" *ngIf="role === 'waiter' && card.order_status === 'Cancel'">
+              <button mat-button class="action-button cancel-button" (click)="Cancel(card.order_id)">Canceled</button>
             </div>
-
-
-
-            <div class="button-container"  *ngIf="role === 'kitchen' && card.order_status === 'Pending'">
-              <button mat-button class="pending-button"(click)="accept(card.order_id)">Accept Order</button>
-              <button mat-button class="pending-button"(click)="cancleFromKitchen(card.order_id)">Cancle order</button>
-              
+            <div class="button-container" *ngIf="role === 'kitchen' && card.order_status === 'Pending'">
+              <button mat-button class="action-button accept-button" (click)="accept(card.order_id)">Accept Order</button>
+              <button mat-button class="action-button cancel-button" (click)="cancleFromKitchen(card.order_id)">Cancel Order</button>
             </div>
-            <div class="button-container"  *ngIf="role === 'kitchen' && card.order_status === 'AcceptOrder'">
-              <button mat-button class="pending-button" (click)="complete(card.order_id)" >
-                Complete
-              </button>
-              
+            <div class="button-container" *ngIf="role === 'kitchen' && card.order_status === 'AcceptOrder'">
+              <button mat-button class="action-button complete-button" (click)="complete(card.order_id)">Complete</button>
             </div>
-
-            <div class="button-container"  *ngIf="role === 'kitchen' && card.order_status === 'Waiting'">
-              <button mat-button class="pending-button"(click)="complete(card.order_id)">Waiting waiter</button>
-              
+            <div class="button-container" *ngIf="role === 'kitchen' && card.order_status === 'Waiting'">
+              <button mat-button class="action-button waiting-button" (click)="complete(card.order_id)">Waiting</button>
             </div>
-
-            <div class="button-container"  *ngIf="role === 'kitchen' && card.order_status === 'Cancle'">
-              <button mat-button class="pending-button"(click)="complete(card.order_id)">Waiting for waiter to cancle</button>
-              
+            <div class="button-container" *ngIf="role === 'kitchen' && card.order_status === 'Cancel'">
+              <button mat-button class="action-button cancel-button" (click)="cancleFromKitchen(card.order_id)">Cancel Order</button>
             </div>
-
           </mat-card>
         </div>
       </td>

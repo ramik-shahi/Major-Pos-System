@@ -15,6 +15,7 @@ import { authGuard } from '../guard/authGuard/auth-guard.guard';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentComponent } from './payment/payment.component';
 import { MenuTableComponent } from './menu/menu-table/menu-table.component';
+import { InventoryTableComponent } from './inventory-table/inventory-table.component';
 
 
 const routes: Routes = [
@@ -41,13 +42,15 @@ const routes: Routes = [
     {path:'menu-table',component:MenuTableComponent, canActivate:[authGuard],data: { title: 'Menu Table',expectedRoles: ['admin'] } },
 
     {path:'order',component:OrderComponent,canActivate:[authGuard],data: { title: 'Order',expectedRoles: ['admin', 'waiter','kitchen'] } },
-     { path: 'Take-Order/Checkout', component:CheckoutComponent,canActivate:[authGuard],data: { title: 'Take-Order/Checkout',expectedRoles: ['admin', 'waiter']} },
+     { path: 'Take-Order/Checkout', component:CheckoutComponent,canActivate:[authGuard],data: { title: 'Take-Order/Checkout',expectedRoles: ['admin', 'waiter','reception']} },
     { path: 'catogory', component:CategoryComponent,canActivate:[authGuard],data: { title: 'catogory',expectedRoles: ['admin', 'waiter']} },
     { path: 'add-catogory', component:AddCategoryComponent,canActivate:[authGuard],data: { title: 'add-catogory',expectedRoles: ['admin', 'waiter']}  },
     { path: 'table', component:TableComponent,canActivate:[authGuard],data: { title: 'table',expectedRoles: ['admin', 'waiter']}  },
     {path:'payment',component:PaymentComponent,canActivate:[authGuard],data: { title: 'payment',expectedRoles: ['admin', 'waiter']} },
+    {path:'inventory',component:InventoryTableComponent,canActivate:[authGuard],data: { title: 'Inventory',expectedRoles: ['admin']}},
 
-    { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+   
 
 
 

@@ -7,9 +7,9 @@
     <mat-nav-list>
       <a mat-list-item *ngIf="isAdmin()" routerLink="/admin/dashboard" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
       <a mat-list-item  *ngIf="isAdmin()" routerLink="/admin/user-management" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">user-management</a>
-      <a mat-list-item routerLink="/admin/menu" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Menu</a>
-      <a mat-list-item routerLink="/admin/order" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">order</a>
-      <a mat-list-item routerLink="/admin/Take-Order/Checkout" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Take Order/Checkout</a>
+      <a mat-list-item *ngIf="isAdminAndWaiter()" routerLink="/admin/menu" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Menu</a>
+      <a mat-list-item    *ngIf="isAdminAndWaiterAndKitchen()"routerLink="/admin/order" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">order</a>
+      <a mat-list-item    *ngIf="isAdminAndWaiterAndReception()" routerLink="/admin/Take-Order/Checkout" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Take Order/Checkout</a>
       <a mat-list-item  *ngIf="isAdmin()" routerLink="/admin/catogory" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">catogory</a>
       <a mat-list-item *ngIf="isAdmin()" routerLink="/admin/table" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
         Table
@@ -18,6 +18,12 @@
       <a mat-list-item *ngIf="isAdmin()" routerLink="/admin/menu-table" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
         Menu Table
       </a>
+
+      <a mat-list-item *ngIf="isAdmin()" routerLink="/admin/inventory" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        Inventory
+      </a>
+
+      
 
 
 

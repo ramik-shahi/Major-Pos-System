@@ -29,7 +29,15 @@ import { TableCardsComponent } from './table-cards/table-cards.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { TableCheckoutCardComponent } from './table-checkout/table-checkout.component';
 import { PaymentComponent } from './payment/payment.component';
+import { InventoryTableComponent } from './inventory-table/inventory-table.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 // import { TableCheckoutComponent } from './table-checkout/table-checkout.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { AddProductInventoryComponent } from './inventory-table/add-product-inventory/add-product-inventory.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -45,7 +53,9 @@ import { PaymentComponent } from './payment/payment.component';
     TableCardsComponent,
     CheckoutComponent,
     TableCheckoutCardComponent,
-    PaymentComponent
+    PaymentComponent,
+    InventoryTableComponent,
+    AddProductInventoryComponent
     // TableCheckoutComponent,
 
   ],
@@ -69,6 +79,12 @@ import { PaymentComponent } from './payment/payment.component';
     TableModule,
     MenuModule,
     HttpClientModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule
 
 
 

@@ -91,6 +91,13 @@ export class ApiService {
   getTable(restaurant_id:any):Observable<any>{
     return this.http.get(`${this.apiUrl}table/${restaurant_id}`)
   }
+  addtable(data:any):Observable<any>{
+    return this.http.post(`${this.apiUrl}table/upload`,data)
+  }
+
+  deletetable(restaurant_id:any, table_id:any):Observable<any>{
+    return this.http.get(`${this.apiUrl}table/delete/${restaurant_id}/${table_id}`)
+  }
 
   postCat(data:any):Observable<any>{
     return this.http.post(`${this.apiUrl}category/upload`,data)
@@ -108,4 +115,6 @@ export class ApiService {
   deluser(restaurant_id:any, user_id:any):Observable<any>{
     return this.http.get(`${this.apiUrl}user/delete/${restaurant_id}/${user_id}`)
   }
+
+  
 }

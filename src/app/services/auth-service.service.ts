@@ -69,6 +69,12 @@ export class AuthServiceService {
 
       }
 
+      else if(this.currentUserRole=='reception'){
+        this.currentUserRole='reception'
+        this.router.navigate(['/admin/Take-Order/Checkout']);
+
+      }
+
     })
 
 

@@ -11,11 +11,13 @@ import { ApiService } from 'src/service/api.service';
 export class TableCardsComponent implements OnInit {
   @Output() tableSelected = new EventEmitter<string>();
   tables!:any[];
+  role=sessionStorage.getItem('role')
   constructor(private router:Router,private api:ApiService){
 
   }
   ngOnInit(): void {
     const resId=sessionStorage.getItem('restaurant_id')
+    
     this.api.getTable(resId).subscribe(res=>{
       this.tables=res
       console.log(this.tables)

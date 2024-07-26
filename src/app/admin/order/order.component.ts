@@ -53,7 +53,8 @@ export class OrderComponent implements OnInit, OnDestroy {
                     menuid: order.menu_id,
                     table_name: order.table_name,
                     order_status: order.order_status,
-                    order_id: order._id
+                    order_id: order._id,
+                    order_qty:order.item_quantity
                   }));
                   console.log("order on page load:"+this.orders);
                   this.Sorders = this.orders;
@@ -109,7 +110,9 @@ export class OrderComponent implements OnInit, OnDestroy {
         image: newOrder.image,
         menuid: newOrder.menu_id,
         table_name: newOrder.table_name,
-        order_status: newOrder.order_status
+        order_status: newOrder.order_status,
+        order_qty:newOrder.item_quantity
+
       };
       console.log("Pushing new order object:", orderObject);
       this.Sorders.push(orderObject);
@@ -189,7 +192,8 @@ export class OrderComponent implements OnInit, OnDestroy {
         order_id: orderId,
         item_name: order.item_name || 'Unknown Item',
         image: order.image || '',
-        order_status: order.order_status || 'Unknown Status'
+        order_status: order.order_status || 'Unknown Status',
+        order_qty:order.order_qty
       };
   
       if (tableOrdersMap.has(tableNo)) {
@@ -201,7 +205,7 @@ export class OrderComponent implements OnInit, OnDestroy {
       } else {
         if((this.role=='waiter' || order.order_status!='Done') && (order.order_status!='Served')) {
           const newOrderObject = {
-            order: `Table ${tableNo}`,
+            order: ` ${tableNo}`,
             cards: [cardObject]
           };
           console.log("Creating new table order:", newOrderObject);

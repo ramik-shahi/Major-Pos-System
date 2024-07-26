@@ -19,7 +19,9 @@
             <!-- <p>card image: {{card.image}}</p> -->
             <div class="item_image"><img mat-card-image [src]='"http://localhost:3001/Upload/"+card.image' alt="{{ card.item_name }}"></div>
             <mat-card-header>
-              <mat-card-title class="card-title">{{ card.item_name }}</mat-card-title>
+              <mat-card-title class="card-title">{{ card.item_name }}  </mat-card-title>
+              <mat-card-title class="card-title">Quantity={{card.order_qty}}  </mat-card-title>
+              
             </mat-card-header>
             <div class="button-container"  *ngIf="role === 'waiter' && card.order_status === 'Pending'">
               <button mat-button class="pending-button">Pending</button>
@@ -49,7 +51,7 @@
 
 
             <div class="button-container"  *ngIf="role === 'kitchen' && card.order_status === 'Pending'">
-              <button mat-button class="pending-button"(click)="accept(card.order_id)">Accept Order</button>{{card.order_id}}
+              <button mat-button class="pending-button"(click)="accept(card.order_id)">Accept Order</button>
               <button mat-button class="pending-button"(click)="cancleFromKitchen(card.order_id)">Cancle order</button>
               
             </div>

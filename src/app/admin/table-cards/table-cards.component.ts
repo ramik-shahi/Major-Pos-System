@@ -1,25 +1,26 @@
 // table-cards.component.ts
-import { Component,Output, EventEmitter  } from '@angular/core';
+import { Component,Output, EventEmitter, OnInit  } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/service/api.service';
 
 @Component({
   selector: 'app-table-cards',
   templateUrl: './table-cards.component.html',
   styleUrls: ['./table-cards.component.css']
 })
-export class TableCardsComponent {
+export class TableCardsComponent implements OnInit {
   @Output() tableSelected = new EventEmitter<string>();
-  tables = [
-    { number: '01', amount: 10 },
-    { number: '02', amount: 50 },
-    { number: '03', amount: 50 },
-    { number: '04', amount: 50 },
-    { number: '05', amount: 50 },
-    { number: '06', amount: 50 },
-    { number: '07', amount: 50 }
-  ];
-  constructor(private router:Router){
+  tables!:any[];
+  constructor(private router:Router,private api:ApiService){
 
+  }
+  ngOnInit(): void {
+    const resId=sessionStorage.getItem('restaurant_id')
+    this.api.getTable(resId).subscribe(res=>{
+      this.tables=res
+      console.log(this.tables)
+      
+    })
   }
 
   addOrder(table_number:any){

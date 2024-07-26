@@ -88,6 +88,10 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}menu/menubycat/${restaurant_id}/${cat_id}`)
   }
 
+  getTable(restaurant_id:any):Observable<any>{
+    return this.http.get(`${this.apiUrl}table/${restaurant_id}`)
+  }
+
   postCat(data:any):Observable<any>{
     return this.http.post(`${this.apiUrl}category/upload`,data)
 

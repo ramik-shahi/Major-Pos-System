@@ -1,5 +1,17 @@
 /* card.component.css */
+/* Center the content of the table cells */
+.order-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  height: 100%; /* Ensure it takes full height of the cell */
+}
 
+/* Center align the text inside order-details */
+.order-details div {
+  margin-bottom: 8px; /* Space between text and button */
+}
 /* Container for responsive table */
 .table-container {
   overflow-x: auto; /* Allows horizontal scroll on smaller screens */
@@ -35,6 +47,7 @@ table.mat-elevation-z8 {
   flex-wrap: wrap;
   gap: 16px;
   padding: 8px;
+  align-items: flex-start; /* Align items to the start of the container */
 }
 
 /* Card styling */
@@ -43,10 +56,45 @@ table.mat-elevation-z8 {
   flex-direction: column;
   width: calc(25% - 16px); /* Adjust width to fit 4 cards per row */
   box-sizing: border-box;
-  padding: 16px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden; /* Prevent overflow of child elements */
+}
+
+/* Image container styling */
+.item_image {
+  width: 100%;
+  padding-top: 125%; /* 100% / (4 / 5) = 125% for 4:5 ratio */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Image styling */
+.item_image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure image covers the container without distortion */
+  object-position: center; /* Center the image */
+  display: block; /* Prevent image overflow */
+}
+
+/* Card content styling */
+.card-content {
+  padding: 16px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+/* Card title styling */
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
 }
 
 /* Button container styling */
@@ -73,13 +121,6 @@ table.mat-elevation-z8 {
 
 .cancel-button {
   background-color: red;
-}
-
-/* Card title styling */
-.card-title {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0;
 }
 
 /* Dine-in button styling */

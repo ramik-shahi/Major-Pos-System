@@ -8,7 +8,7 @@
         <ng-container matColumnDef="item">
           <th mat-header-cell *matHeaderCellDef> Item </th>
           <td mat-cell *matCellDef="let element">
-            <img mat-card-image [src]="element.image" alt="{{element.title}}" style="width: 100px; height: 100px;">
+            <img mat-card-image [src]='"http://localhost:3001/Upload/"+element.image' alt="{{element.title}}" style="width: 100px; height: 100px;">
             {{element.item}}
           </td>
         </ng-container>

@@ -21,6 +21,7 @@ export class UserManagementComponent implements AfterViewInit, OnInit {
 
   dataSource = new MatTableDataSource<Employee>();
   displayedColumns = ['id', 'image', 'name', 'panNumber', 'address', 'phoneNumber', 'position', 'edit', 'delete'];
+  resId = sessionStorage.getItem('restaurant_id');
 
   constructor(public dialog: MatDialog, private api: ApiService) {}
 
@@ -29,9 +30,9 @@ export class UserManagementComponent implements AfterViewInit, OnInit {
   }
 
   fetchUsers(): void {
-    const resId = sessionStorage.getItem('restaurant_id');
-    if (resId) {
-      this.api.getUser(resId).subscribe((res: Employee[]) => {
+     
+    if (this.resId) {
+      this.api.getUser(this.resId).subscribe((res: Employee[]) => {
         this.dataSource.data = res;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -83,6 +84,7 @@ export class UserManagementComponent implements AfterViewInit, OnInit {
       console.log('The dialog was closed');
       // Optionally handle dialog close event
     });
+    this.fetchUsers();
   }
 
   updateUser(id: any): void {
@@ -95,6 +97,7 @@ export class UserManagementComponent implements AfterViewInit, OnInit {
       console.log('The dialog was closed');
       // Optionally handle dialog close event
     });
+    this.fetchUsers();
     console.log(id);
   }
 }

@@ -8,6 +8,15 @@ import { ApiService } from 'src/service/api.service';
 import { EXAMPLE_DATA } from './inventory-table-datasource';
 import { AddProductInventoryComponent } from './add-product-inventory/add-product-inventory.component';
 
+export interface Product {
+  id: number;
+  name: string;
+  quantity: number;
+  description: string;
+  rate: number;
+  supplierName: string;
+}
+
 @Component({
   selector: 'app-inventory-table',
   templateUrl: './inventory-table.component.html',
@@ -18,12 +27,20 @@ export class InventoryTableComponent implements AfterViewInit ,OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<InventoryTableItem>;
-  dataSource = new MatTableDataSource<InventoryTableItem>(EXAMPLE_DATA);
+  displayedColumns: string[] = ['id', 'name', 'quantity', 'description', 'rate', 'supplierName', 'quantityIncDec'];
+  dataSource!: MatTableDataSource<Product>;
   resId=sessionStorage.getItem('restaurant_id')
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name','quantity','description','Suppiler Name'];
-  constructor(public dialog:MatDialog,private api:ApiService){}
+  
+  constructor(public dialog:MatDialog,private api:ApiService){
+     // Example data, replace with your actual data
+     const products: Product[] = [
+      { id: 1, name: 'Product 1', quantity: 10, description: 'Description 1', rate: 100, supplierName: 'Supplier 1' },
+      { id: 2, name: 'Product 2', quantity: 20, description: 'Description 2', rate: 200, supplierName: 'Supplier 2' },
+      // Add more products here
+    ];
+    this.dataSource = new MatTableDataSource(products);
+  }
 
   ngOnInit(): void {
     
@@ -51,5 +68,21 @@ export class InventoryTableComponent implements AfterViewInit ,OnInit {
       console.log('The dialog was closed');
       // Optionally handle dialog close event
     });
+  }
+  increaseQuantity(row: Product) {
+    row.quantity++;
+    this.updateDataSource();
+  }
+
+  decreaseQuantity(row: Product) {
+    if (row.quantity > 0) {
+      row.quantity--;
+      this.updateDataSource();
+    }
+  }
+
+  updateDataSource() {
+    // Update the data source to trigger the table update
+    this.dataSource.data = [...this.dataSource.data];
   }
 }

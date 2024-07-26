@@ -17,6 +17,7 @@ export class UpdateUserComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: { userId: any } ){
       this.userId = data.userId; // Access the passed userId
     this.employeeForm=fb.group({
+      user_id:[''],
       name: [''],
       address: [''],
       email:[''],
@@ -40,6 +41,7 @@ export class UpdateUserComponent implements OnInit{
         if (user) {
           // Populate the form with user data
           this.employeeForm.patchValue({
+            user_id: user._id,
             name: user.user_name,
             address: user.address,
             email: user.email,
@@ -79,6 +81,7 @@ export class UpdateUserComponent implements OnInit{
     }
 
     const controls = {
+      idcontrol: this.employeeForm.get('user_id'),
       namecontrol : this.employeeForm.get('name'),
       addresscontrol : this.employeeForm.get('address'),
       emailcontrol : this.employeeForm.get('email'),
@@ -93,16 +96,23 @@ export class UpdateUserComponent implements OnInit{
       console.log(`${controlName}:`, control?.value);
     }
 
-    if(Object.values(controls).some(control => control === null)){
-      console.error('one or more form controls are missing');
-      return;
+    const missingControls = Object.entries(controls).filter(([controlName, control]) => control === null || control === undefined)
+    .map(([controlName]) => controlName);
+
+    // Log missing controls
+    if (missingControls.length > 0) {
+    console.error('The following form controls are missing or empty:', missingControls.join(', '));
+    return;
     }
 
     const restaurant_id = sessionStorage.getItem('restaurant_id');
     const restaurant_name = sessionStorage.getItem('res_name');
 
+    console.log("restaurant_name :",restaurant_name);
+
     const userFormData = new FormData();
 
+    userFormData.append('user_id',controls.idcontrol?.value || '');
     userFormData.append('name',controls.namecontrol?.value || '');
     userFormData.append('email',controls.emailcontrol?.value || '');
     userFormData.append('phone_no',controls.phonecontrol?.value || '');
@@ -110,12 +120,13 @@ export class UpdateUserComponent implements OnInit{
     userFormData.append('pan_no',controls.pancontrol?.value || '');
     userFormData.append('address',controls.addresscontrol?.value || '');
     userFormData.append('restaurant_id', restaurant_id! || '');
-    userFormData.append('resturant_name',restaurant_name! || '');
+    userFormData.append('restaurant_name',restaurant_name! || '');
 
     if(controls.imagecontrol?.value){
       userFormData.append('image',controls.imagecontrol?.value);
     }else{
       console.error('image control is missing or empty');
+    }
 
     this.api.updateUser(userFormData).subscribe({
       next:(res)=>{
@@ -126,7 +137,6 @@ export class UpdateUserComponent implements OnInit{
         console.error('user addition error:',err);
       }
     });
-    }
  
   }
 

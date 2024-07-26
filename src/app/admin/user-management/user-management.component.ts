@@ -25,13 +25,11 @@ export class UserManagementComponent implements AfterViewInit, OnInit {
   constructor(public dialog: MatDialog, private api: ApiService) {}
 
   ngOnInit(): void {
+    this.fetchUsers();
+  }
 
+  fetchUsers(): void {
     const resId = sessionStorage.getItem('restaurant_id');
-
-    this.api.getUser(resId).subscribe(res=>{
-      console.log(res);
-
-    })
     if (resId) {
       this.api.getUser(resId).subscribe((res: Employee[]) => {
         this.dataSource.data = res;
@@ -60,7 +58,20 @@ export class UserManagementComponent implements AfterViewInit, OnInit {
 
   deleteEmployee(id: any) {
     console.log(id);
-    // Implement your delete functionality here
+
+    if (id) {
+      const restaurantId = sessionStorage.getItem("restaurant_id");
+
+      this.api.deluser(restaurantId, id).subscribe(result => {
+        console.log("Deleted successfully:", result);
+        // Refresh data after successful deletion
+        this.fetchUsers();
+      }, error => {
+        console.error('Error deleting user:', error);
+      });
+    } else {
+      console.error("Error: ID missing");
+    }
   }
 
   openEditDialog(): void {

@@ -97,7 +97,11 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}menu/upload`,data)
   }
 
-  updateUser(data: any):Observable<any>{
+  updateUser(data:any):Observable<any>{
     return this.http.post(`${this.apiUrl}user/update`,data)
+  }
+
+  deluser(restaurant_id:any, user_id:any):Observable<any>{
+    return this.http.get(`${this.apiUrl}user/delete/${restaurant_id}/${user_id}`)
   }
 }

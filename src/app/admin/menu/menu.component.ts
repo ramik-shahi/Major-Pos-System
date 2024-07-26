@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 interface SelectedProduct {
   product: Product;
+  menu_id: any;
   table_name: string;
   billStatus: string;
   user_id:any;
@@ -67,7 +68,7 @@ export class MenuComponent implements OnInit {
         item_name: item.item_name,
         price: item.item_price,
         rating: item.item_rating,
-        image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg',
+        image: item.item_pic,
         item_quantity: 0,
         selected: false
       }));
@@ -113,9 +114,10 @@ export class MenuComponent implements OnInit {
     if (product.item_quantity > 0) {
       product.selected = !product.selected;
     }
-
+    
     if (product.selected && product.item_quantity > 0) {
       this.orders.push({ product,
+        menu_id: product.menu_id,
         table_name: this.table_number, 
         billStatus: 'Pending' ,
         user_id:sessionStorage.getItem('user_id')?.toString(),
@@ -125,8 +127,8 @@ export class MenuComponent implements OnInit {
         restaurant_name:sessionStorage.getItem('restaurant_name')?.toString(),
         order_date:Date.now()
 
-      });-
-      console.log(product);
+      });
+      console.log("select product log:"+product.selected);
     } else {
       const index = this.orders.findIndex(p => p.product.item_name === product.item_name);
       if (index !== -1) {

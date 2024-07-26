@@ -52,6 +52,11 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}menu/${restaurant_id}/${menu_id}`)
 
   }
+
+  getMenupic(restaurantId: string, menuId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}menu/${restaurantId}/${menuId}`, {});
+  }  
+
   postOrder(data:any):Observable<any>{
     return this.http.post(`${this.apiUrl}order/upload`,data)
 
@@ -67,7 +72,7 @@ export class ApiService {
 
   }
   UpdateOrder(data:any):Observable<any>{
-   
+    console.log('Data being sent to UpdateOrder:', data);
     return this.http.post(`${this.apiUrl}order/statusupdate`,data)
 
   }

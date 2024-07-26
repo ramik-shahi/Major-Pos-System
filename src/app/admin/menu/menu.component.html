@@ -3,7 +3,7 @@
       <div class="products">
         <mat-card *ngFor="let product of paginatedProducts" class="product-card"
                   (click)="selectProduct(product)" [class.selected]="product.selected">
-          <img mat-card-image [src]="product.image" alt="{{product.item_name}}" class="image">
+          <img mat-card-image [src]='"http://localhost:3001/Upload/"+product.image' alt="{{product.item_name}}" class="image">
           <mat-card-content>
             <div class="product-details">
               <h2>{{product.item_name}}</h2>

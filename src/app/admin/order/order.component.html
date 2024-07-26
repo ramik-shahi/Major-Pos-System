@@ -16,13 +16,15 @@
       <td mat-cell *matCellDef="let order">
         <div class="cards-container">
           <mat-card class="card" *ngFor="let card of order.cards"  >
-            <img mat-card-image [src]="card.image" alt="{{ card.item_name }}">
+            <!-- <p>card image: {{card.image}}</p> -->
+            <div class="item_image"><img mat-card-image [src]='"http://localhost:3001/Upload/"+card.image' alt="{{ card.item_name }}"></div>
             <mat-card-header>
               <mat-card-title class="card-title">{{ card.item_name }}</mat-card-title>
             </mat-card-header>
             <div class="button-container"  *ngIf="role === 'waiter' && card.order_status === 'Pending'">
               <button mat-button class="pending-button">Pending</button>
               <button mat-button class="cancel-button" (click)="Cancel(card.order_id)">Cancel</button>
+
             </div>
 
             <div class="button-container"  *ngIf="role === 'waiter' && card.order_status === 'AcceptOrder'">
@@ -32,7 +34,6 @@
 
             <div class="button-container"  *ngIf="role === 'waiter' && card.order_status === 'Waiting'">
               <button mat-button class="pending-button" (click)="pick(card.order_id)">Your Order please come to pick</button>
-             
             </div>
 
             <div class="button-container"  *ngIf="role === 'waiter' && card.order_status === 'Done'">
@@ -48,12 +49,14 @@
 
 
             <div class="button-container"  *ngIf="role === 'kitchen' && card.order_status === 'Pending'">
-              <button mat-button class="pending-button"(click)="accept(card.order_id)">Accept Order</button>
+              <button mat-button class="pending-button"(click)="accept(card.order_id)">Accept Order</button>{{card.order_id}}
               <button mat-button class="pending-button"(click)="cancleFromKitchen(card.order_id)">Cancle order</button>
               
             </div>
             <div class="button-container"  *ngIf="role === 'kitchen' && card.order_status === 'AcceptOrder'">
-              <button mat-button class="pending-button"(click)="complete(card.order_id)">Complete</button>
+              <button mat-button class="pending-button" (click)="complete(card.order_id)" >
+                Complete(No order ID){{card | json}}
+              </button>
               
             </div>
 

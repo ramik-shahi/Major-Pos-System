@@ -127,10 +127,11 @@ export class OrderComponent implements OnInit, OnDestroy {
         });}
       }
     });
+    
+    this.orders = Array.from(tableOrdersMap.values());
     console.log("-----------------")
     console.log(this.orders)
     console.log("-----------------")
-    this.orders = Array.from(tableOrdersMap.values());
   }
 
   accept(order_id: any) {

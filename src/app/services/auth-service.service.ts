@@ -49,6 +49,7 @@ export class AuthServiceService {
       sessionStorage.setItem('user_id',Response.data.user_id)
       sessionStorage.setItem('restaurant_id',Response.data.restaurant_id)
       sessionStorage.setItem('role',this.currentUserRole)
+      sessionStorage.setItem('res_name',Response.data.restaurant_name)
 
       console.log(  sessionStorage.getItem('role'))
 

@@ -2,11 +2,12 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { EXAMPLE_DATA,CategoryDataSource, CategoryItem } from './category-datasource';
+import {  CategoryItem } from './category-datasource';
 import { AddUserComponent } from '../../user-management/add-user/add-user.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCategoryComponent } from '../add-category/add-category.component';
 import { UpdateCategoryComponent } from '../update-category/update-category.component';
+import { ApiService } from 'src/service/api.service';
 
 
 @Component({
@@ -18,14 +19,22 @@ export class CategoryComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<CategoryItem>;
-  dataSource = new MatTableDataSource<CategoryItem>(EXAMPLE_DATA);
+  dataSource = new MatTableDataSource<CategoryItem>();
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'category-name','aviable','edit','delete'];
+  resId = sessionStorage.getItem('restaurant_id');
 
-  constructor(public dialog:MatDialog){}
+  constructor(public dialog:MatDialog,private api:ApiService){}
 
   ngAfterViewInit(): void {
+    
+    this.api.getCategory(this.resId).subscribe(res=>{
+
+      this.dataSource.data=res
+      console.log(res)
+      console.log("this is data source value",this.dataSource)
+    })
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;

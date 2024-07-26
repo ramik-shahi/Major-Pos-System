@@ -78,5 +78,14 @@ export class ApiService {
   getCategory(restaurant_id:any):Observable<any>{
     return this.http.get(`${this.apiUrl}category/${restaurant_id}`)
   }
+
+  getMenuByCat(restaurant_id:any,cat_id:any):Observable<any>{
+    return this.http.get(`${this.apiUrl}menu/menubycat/${restaurant_id}/${cat_id}`)
+  }
+
+  postCat(data:any):Observable<any>{
+    return this.http.post(`${this.apiUrl}category/upload`,data)
+
+  }
   
 }

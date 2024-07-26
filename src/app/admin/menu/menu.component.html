@@ -42,7 +42,8 @@
       <div class="categories">
         <h3>Categories</h3>
         <mat-list>
-          <mat-list-item  *ngFor="let category of categories"  (click)="categories_s(category)">{{category}}</mat-list-item>
+          <mat-list-item    (click)="categories_s('all')">ALL Menu</mat-list-item>
+          <mat-list-item  *ngFor="let category of categories"  (click)="categories_s(category._id)">{{category.name}}</mat-list-item>
         </mat-list>
       </div>
 

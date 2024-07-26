@@ -3,7 +3,8 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { TableDataSource, TableItem } from './table-datasource';
-import { EXAMPLE_DATA } from '../../add-category/category/category-datasource';
+
+
 import { MatDialog } from '@angular/material/dialog';
 import { AddTableComponent } from '../add-table/add-table.component';
 import { UpdateTableComponent } from '../update-table/update-table.component';
@@ -17,7 +18,7 @@ export class TableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<TableItem>;
-  dataSource = new  MatTableDataSource<TableItem>(EXAMPLE_DATA)
+  dataSource = new  MatTableDataSource<TableItem>()
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name','edit','delete'];

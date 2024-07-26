@@ -4,6 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
+
 interface SelectedProduct {
   product: Product;
   table_name: string;
@@ -41,14 +42,15 @@ export class MenuComponent implements OnInit {
 
  orders: SelectedProduct[] = [];
 
-  categories = ['Drinks', 'Breakfast', 'Lunch', 'Dinner', 'Hot Drinks', 'Tea', 'Coffee', 'Cold Drinks'];
+  categories!:any[];
 
   pageSize = 5;
   pageSizeOptions: number[] = [5, 10, 20];
   pageIndex = 0;
   table_number:any;
+  resId = sessionStorage.getItem('restaurant_id');
 
-  constructor(private apiservice: ApiService,private activatedroute: ActivatedRoute) {
+  constructor(private apiservice: ApiService,private activatedroute: ActivatedRoute,private route:Router) {
    
    }
 
@@ -58,8 +60,8 @@ export class MenuComponent implements OnInit {
    this.table_number=this.activatedroute.snapshot.paramMap.get('table_number'); 
    
     console.log('-------------------------')
-    const resId = sessionStorage.getItem('restaurant_id');
-    this.apiservice.getMenu(resId).subscribe((response: any[]) => {
+    
+    this.apiservice.getMenu(this.resId).subscribe((response: any[]) => {
       this.products = response.map(item => ({
         menu_id:item._id,
         item_name: item.item_name,
@@ -74,6 +76,18 @@ export class MenuComponent implements OnInit {
       console.log(response);
       console.log(this.products);
     });
+
+
+   
+
+
+    this.apiservice.getCategory(this.resId).subscribe(res=>{
+
+      console.log(res)
+      this.categories=res
+
+    })
+
   }
 
   filterProducts() {
@@ -153,10 +167,51 @@ export class MenuComponent implements OnInit {
       console.log(res);
     })
     console.log(orderPayload);
+    this.route.navigate(['/admin/order']);
 
   }
 
   categories_s(category: any) {
     console.log(category);
+
+  if (category=='all') {
+    this.apiservice.getMenu(this.resId).subscribe((response: any[]) => {
+      this.products = response.map(item => ({
+        menu_id:item._id,
+        item_name: item.item_name,
+        price: item.item_price,
+        rating: item.item_rating,
+        image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg',
+        item_quantity: 0,
+        selected: false
+      }));
+      this.filteredProducts = [...this.products];
+      this.updatePaginatedProducts();
+      console.log(response);
+      console.log(this.products);
+    });
+    
+  } else {
+    this.apiservice.getMenuByCat(this.resId,category).subscribe((response: any[]) => {
+      this.products = response.map(item => ({
+        menu_id:item._id,
+        item_name: item.item_name,
+        price: item.item_price,
+        rating: item.item_rating,
+        image: 'https://www.foodandwine.com/thmb/4qg95tjf0mgdHqez5OLLYc0PNT4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg',
+        item_quantity: 0,
+        selected: false
+      }));
+      this.filteredProducts = [...this.products];
+      this.updatePaginatedProducts();
+      console.log(response);
+      console.log(this.products);
+    });
+    
+  }
+
+
+
+
   }
 }

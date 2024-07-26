@@ -73,8 +73,61 @@ export class UpdateUserComponent implements OnInit{
 
 
   saveChanges(): void {
-    // Logic to save changes (e.g., update employee details)
-    this.dialogRef.close();
+    if(!this.employeeForm){
+      console.error('Form is not initialized');
+      return;
+    }
+
+    const controls = {
+      namecontrol : this.employeeForm.get('name'),
+      addresscontrol : this.employeeForm.get('address'),
+      emailcontrol : this.employeeForm.get('email'),
+      passworcontrol : this.employeeForm.get('password'),
+      phonecontrol : this.employeeForm.get('phoneNumber'),
+      pancontrol : this.employeeForm.get('panNumber'),
+      positioncontrol : this.employeeForm.get('position'),
+      imagecontrol : this.employeeForm.get('image')
+    };
+
+    for (const [controlName, control] of Object.entries(controls)) {
+      console.log(`${controlName}:`, control?.value);
+    }
+
+    if(Object.values(controls).some(control => control === null)){
+      console.error('one or more form controls are missing');
+      return;
+    }
+
+    const restaurant_id = sessionStorage.getItem('restaurant_id');
+    const restaurant_name = sessionStorage.getItem('res_name');
+
+    const userFormData = new FormData();
+
+    userFormData.append('name',controls.namecontrol?.value || '');
+    userFormData.append('email',controls.emailcontrol?.value || '');
+    userFormData.append('phone_no',controls.phonecontrol?.value || '');
+    userFormData.append('position',controls.positioncontrol?.value || '');
+    userFormData.append('pan_no',controls.pancontrol?.value || '');
+    userFormData.append('address',controls.addresscontrol?.value || '');
+    userFormData.append('restaurant_id', restaurant_id! || '');
+    userFormData.append('resturant_name',restaurant_name! || '');
+
+    if(controls.imagecontrol?.value){
+      userFormData.append('image',controls.imagecontrol?.value);
+    }else{
+      console.error('image control is missing or empty');
+
+    this.api.updateUser(userFormData).subscribe({
+      next:(res)=>{
+        console.log('user added: ', res);
+        this.dialogRef.close();
+      },
+      error: (err)=>{
+        console.error('user addition error:',err);
+      }
+    });
+    }
+ 
   }
 
   closeDialog(): void {

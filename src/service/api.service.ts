@@ -92,5 +92,12 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}category/upload`,data)
 
   }
-  
+
+  addMenu(data:any):Observable<any>{
+    return this.http.post(`${this.apiUrl}menu/upload`,data)
+  }
+
+  updateUser(data: any):Observable<any>{
+    return this.http.post(`${this.apiUrl}user/update`,data)
+  }
 }

@@ -55,7 +55,7 @@
             </div>
             <div class="button-container"  *ngIf="role === 'kitchen' && card.order_status === 'AcceptOrder'">
               <button mat-button class="pending-button" (click)="complete(card.order_id)" >
-                Complete(No order ID){{card | json}}
+                Complete
               </button>
               
             </div>

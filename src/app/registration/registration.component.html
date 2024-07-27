@@ -1,0 +1,138 @@
+<html>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+  <body>
+    <div class="container">
+      <div class="left-side">
+        <div class="overlay">
+          <h1>FAST AND EFFICIENT POS</h1>
+          <h2>SOLUTION</h2>
+        </div>
+      </div>
+      <div class="right-side">
+        <div class="login-box">
+          <div class="logo">
+            <img src="assets/login2.png" alt="POS Logo">
+          </div>
+          <h3>Register</h3>
+          <p>Please fill in the details to register your restaurant.</p>
+          <form [formGroup]="registration">
+            
+            <!-- Restaurant Details -->
+            <fieldset>
+              <legend>Restaurant Details</legend>
+              
+              <div>
+                <label for="name">Restaurant Name:</label>
+                <input id="name" formControlName="name" />
+                <div *ngIf="registration.get('name')?.invalid && registration.get('name')?.touched">
+                  <small *ngIf="registration.get('name')?.errors?.['required']">Restaurant name is required.</small>
+                </div>
+              </div>
+
+              <div formGroupName="location">
+                <label>Location:</label>
+                <div>
+                  <label for="address">Address:</label>
+                  <input id="address" formControlName="address" />
+                </div>
+                <div>
+                  <label for="city">City:</label>
+                  <input id="city" formControlName="city" />
+                </div>
+                <div>
+                  <label for="state">State:</label>
+                  <input id="state" formControlName="state" />
+                </div>
+                <div>
+                  <label for="zip">Zip Code:</label>
+                  <input id="zip" formControlName="zip" type="number" />
+                </div>
+              </div>
+
+              <div formGroupName="coordinates">
+                <label>Coordinates:</label>
+                <div>
+                  <label for="latitude">Latitude:</label>
+                  <input id="latitude" formControlName="latitude" type="number" step="any" />
+                </div>
+                <div>
+                  <label for="longitude">Longitude:</label>
+                  <input id="longitude" formControlName="longitude" type="number" step="any" />
+                </div>
+              </div>
+
+              <div>
+                <label for="phone">Phone:</label>
+                <input id="phone" formControlName="phone" />
+              </div>
+
+              <div>
+                <label for="email">Email:</label>
+                <input id="email" formControlName="email" />
+                <div *ngIf="registration.get('email')?.invalid && registration.get('email')?.touched">
+                  <small *ngIf="registration.get('email')?.errors?.['required']">Email is required.</small>
+                  <small *ngIf="registration.get('email')?.errors?.['email']">Invalid email format.</small>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Manager Details -->
+            <fieldset>
+              <legend>Manager Details</legend>
+              
+              <div formGroupName="manager">
+                <div>
+                  <label for="managerName">Name:</label>
+                  <input id="managerName" formControlName="name" />
+                  <div *ngIf="registration.get('manager')?.get('name')?.invalid && registration.get('manager')?.get('name')?.touched">
+                    <small *ngIf="registration.get('manager')?.get('name')?.errors?.['required']">Manager name is required.</small>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="managerAddress">Address:</label>
+                  <input id="managerAddress" formControlName="address" />
+                  <div *ngIf="registration.get('manager')?.get('address')?.invalid && registration.get('manager')?.get('address')?.touched">
+                    <small *ngIf="registration.get('manager')?.get('address')?.errors?.['required']">Manager address is required.</small>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="managerEmail">Email:</label>
+                  <input id="managerEmail" formControlName="email" />
+                  <div *ngIf="registration.get('manager')?.get('email')?.invalid && registration.get('manager')?.get('email')?.touched">
+                    <small *ngIf="registration.get('manager')?.get('email')?.errors?.['required']">Manager email is required.</small>
+                    <small *ngIf="registration.get('manager')?.get('email')?.errors?.['email']">Invalid email format.</small>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="managerPassword">Password:</label>
+                  <input id="managerPassword" formControlName="password" type="password" />
+                  <div *ngIf="registration.get('manager')?.get('password')?.invalid && registration.get('manager')?.get('password')?.touched">
+                    <small *ngIf="registration.get('manager')?.get('password')?.errors?.['required']">Password is required.</small>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="managerPhone">Phone Number:</label>
+                  <input id="managerPhone" formControlName="phoneNumber" />
+                </div>
+
+                <div>
+                  <label for="managerPan">PAN Number:</label>
+                  <input id="managerPan" formControlName="panNumber" />
+                </div>
+              </div>
+            </fieldset>
+
+            <button type="submit" (click)="onSubmit()">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

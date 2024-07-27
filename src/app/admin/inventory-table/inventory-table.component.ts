@@ -15,6 +15,7 @@ export interface Product {
   description: string;
   rate: number;
   supplierName: string;
+  newQuantity:number;
 }
 
 @Component({
@@ -27,29 +28,51 @@ export class InventoryTableComponent implements AfterViewInit ,OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<InventoryTableItem>;
-  displayedColumns: string[] = ['id', 'name', 'quantity', 'description', 'rate', 'supplierName', 'quantityIncDec'];
+  displayedColumns: string[] = ['id', 'name', 'quantity', 'description', 'rate', 'supplierName', 'quantityIncDec','Update Quantity'];
   dataSource!: MatTableDataSource<Product>;
   resId=sessionStorage.getItem('restaurant_id')
+
+  products: Product[] = [];
 
   
   constructor(public dialog:MatDialog,private api:ApiService){
      // Example data, replace with your actual data
-     const products: Product[] = [
-      { id: 1, name: 'Product 1', quantity: 10, description: 'Description 1', rate: 100, supplierName: 'Supplier 1' },
-      { id: 2, name: 'Product 2', quantity: 20, description: 'Description 2', rate: 200, supplierName: 'Supplier 2' },
-      // Add more products here
-    ];
-    this.dataSource = new MatTableDataSource(products);
+     
+    this.dataSource = new MatTableDataSource();
   }
 
   ngOnInit(): void {
+    this.fetchData();
+
+   
+    console.log(this.products)
+    this.dataSource.data=this.products
     
+  }
+
+  fetchData(){
+    this.api.getInven(this.resId).subscribe((res :any[])=>{
+      console.log(res);
+      this.products=res.map((item:any)=>({
+        id: item._id,
+        name: item.item_name,
+        quantity: item.quantity,
+        description: item.description,
+        rate: item.rate,
+        supplierName: item.suppliers_name,
+        newQuantity:item.quantity
+      }))
+      console.log(this.products)
+    this.dataSource.data=this.products
+    })
+
   }
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+    
   }
 
   applyFilter(event: Event) {
@@ -70,19 +93,43 @@ export class InventoryTableComponent implements AfterViewInit ,OnInit {
     });
   }
   increaseQuantity(row: Product) {
-    row.quantity++;
+    row.newQuantity++;
+
+    
+
+    
     this.updateDataSource();
   }
 
   decreaseQuantity(row: Product) {
     if (row.quantity > 0) {
-      row.quantity--;
-      this.updateDataSource();
+      row.newQuantity--;
+      // this.updateDataSource();
     }
   }
 
   updateDataSource() {
     // Update the data source to trigger the table update
-    this.dataSource.data = [...this.dataSource.data];
+    // this.dataSource.data = [...this.dataSource.data];
+  }
+  updateQty(row:Product){
+
+    const newQty=row.newQuantity
+    
+    const new_qty={
+      Invt_id:row.id,
+      quantity:newQty
+
+
+     
+    }
+
+    console.log(new_qty)
+    this.api.UpdateInv(new_qty).subscribe(res=>{
+      console.log(res);
+    })
+
+    this.fetchData();
+
   }
 }

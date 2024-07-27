@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   password:string="";
 
 
-  constructor(private fb:FormBuilder,private _login:LoginServiceService,private route:Router,private auth:AuthServiceService,private apiservice:ApiService){}
+  constructor(private fb:FormBuilder,private route:Router,private auth:AuthServiceService,private apiservice:ApiService){}
 
   ngOnInit(): void {
    

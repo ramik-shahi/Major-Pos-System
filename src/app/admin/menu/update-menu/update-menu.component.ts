@@ -20,14 +20,12 @@ export class UpdateMenuComponent implements OnInit {
 
       console.log("this is menu id",this.menuid)
       this.menuForm=fb.group({
-        name: [''],
+      menu_id:[''],
+      name: [''],
       price: [''],
       description:[''],
-      
       image:['null'],
-      
       category:['']
-
       })
 
 
@@ -48,20 +46,25 @@ export class UpdateMenuComponent implements OnInit {
       console.log("---------------")
       console.log(res)
       console.log("---------------")
+      this.api.getMenupic(resId,this.menuid).subscribe(
+        tempmenu=>{
 
-      if(res){
-        this.menuForm.patchValue({
-          name:res.item_name,
-          price:res.item_price,
-          description:res.item_description,
-          category:res.item_category
-          
+          const image = tempmenu.item_pic;
 
-          
-          
+          if(tempmenu){
+            this.menuForm.patchValue({
+              menu_id: this.menuid,
+              image: image,
+              name:res.item_name,
+              price:res.item_price,
+              description:res.item_description,
+              category:res.item_category
+            })
+          }
 
-        })
-      }
+        }
+      );
+      
 
     })
    
@@ -81,10 +84,53 @@ export class UpdateMenuComponent implements OnInit {
     }
   }
   saveChanges() {
+    if(!this.menuForm){
+      console.log("Form is not initialized");
+      return;
+    }
+    console.log("menu id:",this.menuid);
+    const controls = {
+      idcontrols: this.menuForm.get('menu_id'),
+      namecontrols: this.menuForm.get('name'),
+      descriptioncontrol: this.menuForm.get('description'),
+      pricecontrol: this.menuForm.get('price'),
+      categorycontrol: this.menuForm.get('category'),
+      imagecontrol: this.menuForm.get('image')
+    };
+
+    const restaurant_id = sessionStorage.getItem('restaurant_id');
+    const restaurant_name = sessionStorage.getItem('res_name');
+
+    const menuFormData = new FormData();
+
+    menuFormData.append('menu_id', controls.idcontrols?.value || '');
+    menuFormData.append('item_name', controls.namecontrols?.value || '');
+    menuFormData.append('item_price', controls.pricecontrol?.value || '');
+    menuFormData.append('item_category', controls.categorycontrol?.value || '');
+
+
+    if(controls.imagecontrol?.value){
+      menuFormData.append('image',controls.imagecontrol?.value);
+    }else{
+      console.error('image control is missing or empty');
+    }
+
+    menuFormData.append('item_description', controls.descriptioncontrol?.value || '');
+    menuFormData.append('restaurant_id', restaurant_id! || '');
+    menuFormData.append('restaurant_name', restaurant_name! || '');
+
+    this.api.updatemenu(menuFormData).subscribe({
+      next:(res)=>{
+        console.log('menu added:',res);
+        this.dialogRef.close();
+      },
+      error:(err)=>{
+        console.error('menu addition error:',err);
+      }
+    });
+
     console.log(this.menuForm.value);
   }
-
-
 
 
 }

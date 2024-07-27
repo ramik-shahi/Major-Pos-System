@@ -34,7 +34,7 @@
         </mat-radio-group>
 
         <div *ngIf="this.status!=='Done'">
-          P<button mat-raised-button color="accent" class="btn" (click)="proceed()">
+          <button mat-raised-button color="accent" class="btn" (click)="proceed()">
             Proceed now
           </button>
 
@@ -47,4 +47,9 @@
       </div>
     </div>
   </mat-card>
+
+  <div id="payment-form">
+    <div id="card-element"><!-- Stripe Element will be inserted here --></div>
+    <button (click)="proceed()">Pay Now</button>
+  </div>
   

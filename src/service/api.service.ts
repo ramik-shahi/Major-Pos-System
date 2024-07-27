@@ -135,6 +135,11 @@ export class ApiService {
   billGeneration(data:any):Observable<any>{
     return this.http.post(`${this.apiUrl}bill/upload`,data)
   }
+
+  Client(data:any):Observable<any>{
+    return this.http.post(`${this.apiUrl}payment`,data)
+  }
+  
   
 
 }

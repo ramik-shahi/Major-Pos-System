@@ -18,7 +18,7 @@
           </div>
           <h3>Register</h3>
           <p>Please fill in the details to register your restaurant.</p>
-          <form [formGroup]="registration" (ngSubmit)="onSubmit()">
+          <form [formGroup]="registration">
             
             <!-- Restaurant Details -->
             <fieldset>
@@ -129,7 +129,7 @@
               </div>
             </fieldset>
 
-            <button type="submit">Register</button>
+            <button type="submit" (click)="onSubmit()">Register</button>
           </form>
         </div>
       </div>

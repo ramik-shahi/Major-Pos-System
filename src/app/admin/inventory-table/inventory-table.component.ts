@@ -28,7 +28,7 @@ export class InventoryTableComponent implements AfterViewInit ,OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<InventoryTableItem>;
-  displayedColumns: string[] = ['id', 'name', 'quantity', 'description', 'rate', 'supplierName', 'quantityIncDec'];
+  displayedColumns: string[] = ['id', 'name', 'quantity', 'description', 'rate', 'supplierName', 'quantityIncDec','Update Quantity'];
   dataSource!: MatTableDataSource<Product>;
   resId=sessionStorage.getItem('restaurant_id')
 
@@ -42,7 +42,15 @@ export class InventoryTableComponent implements AfterViewInit ,OnInit {
   }
 
   ngOnInit(): void {
+    this.fetchData();
 
+   
+    console.log(this.products)
+    this.dataSource.data=this.products
+    
+  }
+
+  fetchData(){
     this.api.getInven(this.resId).subscribe((res :any[])=>{
       console.log(res);
       this.products=res.map((item:any)=>({
@@ -58,9 +66,6 @@ export class InventoryTableComponent implements AfterViewInit ,OnInit {
     this.dataSource.data=this.products
     })
 
-    console.log(this.products)
-    this.dataSource.data=this.products
-    
   }
 
   ngAfterViewInit(): void {
@@ -88,8 +93,11 @@ export class InventoryTableComponent implements AfterViewInit ,OnInit {
     });
   }
   increaseQuantity(row: Product) {
-
     row.newQuantity++;
+
+    
+
+    
     this.updateDataSource();
   }
 
@@ -103,5 +111,25 @@ export class InventoryTableComponent implements AfterViewInit ,OnInit {
   updateDataSource() {
     // Update the data source to trigger the table update
     // this.dataSource.data = [...this.dataSource.data];
+  }
+  updateQty(row:Product){
+
+    const newQty=row.newQuantity
+    
+    const new_qty={
+      Invt_id:row.id,
+      quantity:newQty
+
+
+     
+    }
+
+    console.log(new_qty)
+    this.api.UpdateInv(new_qty).subscribe(res=>{
+      console.log(res);
+    })
+
+    this.fetchData();
+
   }
 }

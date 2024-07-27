@@ -16,6 +16,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentComponent } from './payment/payment.component';
 import { MenuTableComponent } from './menu/menu-table/menu-table.component';
 import { InventoryTableComponent } from './inventory-table/inventory-table.component';
+import { BillTableComponent } from './bill-table/bill-table.component';
 
 
 const routes: Routes = [
@@ -47,7 +48,8 @@ const routes: Routes = [
     { path: 'add-catogory', component:AddCategoryComponent,canActivate:[authGuard],data: { title: 'add-catogory',expectedRoles: ['admin', 'waiter']}  },
     { path: 'table', component:TableComponent,canActivate:[authGuard],data: { title: 'table',expectedRoles: ['admin', 'waiter']}  },
     {path:'payment/:id/:total',component:PaymentComponent,canActivate:[authGuard],data: { title: 'payment',expectedRoles: ['admin', 'waiter']} },
-    {path:'inventory',component:InventoryTableComponent,canActivate:[authGuard],data: { title: 'Inventory',expectedRoles: ['admin']}},
+    {path:'inventory',component:InventoryTableComponent,canActivate:[authGuard],data: { title: 'Inventory',expectedRoles: ['admin','kitchen']}},
+    {path:'bill',component:BillTableComponent,canActivate:[authGuard],data:{title: 'Sales Data',expectedRoles: ['admin','reception']}},
 
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
    

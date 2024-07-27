@@ -140,6 +140,10 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}payment`,data)
   }
   
+  getBill(restaurant_id:any):Observable<any>{
+    return this.http.get(`${this.apiUrl}bill/get/${restaurant_id}`)
+  }
+  
   
 
 }

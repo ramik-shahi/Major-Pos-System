@@ -37,6 +37,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AddProductInventoryComponent } from './inventory-table/add-product-inventory/add-product-inventory.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BillTableComponent } from './bill-table/bill-table.component';
 
 
 
@@ -55,7 +56,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TableCheckoutCardComponent,
     PaymentComponent,
     InventoryTableComponent,
-    AddProductInventoryComponent
+    AddProductInventoryComponent,
+    BillTableComponent
     // TableCheckoutComponent,
 
   ],

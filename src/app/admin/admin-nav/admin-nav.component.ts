@@ -44,6 +44,8 @@ export class AdminNavComponent implements OnInit {
       return this.auth.getRole()==='admin'
 
     }
+
+    
     
     logout() {
       
@@ -51,6 +53,45 @@ export class AdminNavComponent implements OnInit {
       sessionStorage.clear();
       // Redirect to the login page or home
       this.router.navigate(['/login']);
+    }
+
+    isAdminAndWaiter(){
+      if(this.auth.getRole()==='admin' ||this.auth.getRole()==='waiter'){
+        return true
+      }
+      return false
+
+    }
+
+    isAdminAndWaiterAndKitchen(){
+
+      if(this.auth.getRole()==='admin' ||this.auth.getRole()==='waiter' || this.auth.getRole()==='kitchen'){
+        return true
+      }
+      return false
+
+    }
+    
+    isAdminAndWaiterAndReception(){
+      if(this.auth.getRole()==='admin' ||this.auth.getRole()==='waiter' || this.auth.getRole()==='reception'){
+        return true
+      }
+      return false
+    }
+
+
+    isAdminAndKitchen(){
+      if(this.auth.getRole()==='admin' ||this.auth.getRole()==='kitchen'){
+        return true
+      }
+      return false
+    }
+
+    isAdminAndReception(){
+      if(this.auth.getRole()==='admin' ||this.auth.getRole()==='reception'){
+        return true
+      }
+      return false
     }
     
 }

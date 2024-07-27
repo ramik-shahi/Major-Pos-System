@@ -50,7 +50,7 @@
       <th mat-header-cell *matHeaderCellDef>Quantity Control</th>
       <td mat-cell *matCellDef="let row">
         <button mat-button (click)="decreaseQuantity(row)">-</button>
-        {{row.quantity}}
+        {{row.newQuantity}}
         <button mat-button (click)="increaseQuantity(row)">+</button>
       </td>
     </ng-container>

@@ -19,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { AdminModule } from './admin/admin.module';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { RegistrationComponent } from './registration/registration.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 @NgModule({
@@ -27,6 +28,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     AppComponent,
     LoginComponent,
     PagenotFoundComponent,
+    RegistrationComponent,
 
   ],
   imports: [

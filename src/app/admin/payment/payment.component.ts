@@ -20,7 +20,9 @@ export class PaymentComponent implements OnInit {
   selectedPaymentMethod!: string;
   tableId!: any;
   resid: any = sessionStorage.getItem('restaurant_id');
-  status: any;
+  status:any;
+  billid='';
+  tablename:any;
   total: any;
 
   constructor(private route: ActivatedRoute, private api: ApiService) {
@@ -50,16 +52,22 @@ export class PaymentComponent implements OnInit {
         restaurant_id: this.resid,
         table_name: this.tableId,
         total: this.total,
-        channel: 'cash'
+        channel: 'cash',
+        dis:0,
       };
 
       this.api.billGeneration(dataobj).subscribe(res => {
         console.log(res);
+        this.billid=res._id;
+        this.tablename=this.tableId;
         if (res.bill_status === 'processing') {
           this.status = 'Done';
+          this.billid=res._id;
+          this.tablename=this.tableId;
         }
+        console.log("bill    :  ",this.billid);
       });
-    }
+    };
 
     
       const dataobj = {
@@ -69,10 +77,13 @@ export class PaymentComponent implements OnInit {
         channel: 'online-payment'
       };
 
-      this.api.billGeneration(dataobj).pipe(
+    if (this.selectedPaymentMethod === '1'){
+        this.api.billGeneration(dataobj).pipe(
         switchMap((res: any) => {
           console.log(res);
           const bill_id = res._id;
+          this.billid=res._id;
+          this.tablename=this.tableId;
           console.log("BILL status", res.bill_status);
 
           if (res.bill_status === "processing") {
@@ -122,5 +133,41 @@ export class PaymentComponent implements OnInit {
         }
       );
     }
+    }
   
+    billing(id:any,tname:any){
+      const data={
+        billId: id,
+        table_name: tname
+      }
+      console.log(data);
+      this.api.getpdf(data).subscribe({
+        next: (response: Blob) => {
+          // Create a URL for the Blob object
+          const url = window.URL.createObjectURL(response);
+    
+          // Create a link element
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = 'bill.pdf'; // Set the default file name
+    
+          // Append the link to the body
+          document.body.appendChild(link);
+    
+          // Programmatically click the link to trigger the download
+          link.click();
+    
+          // Remove the link from the document
+          document.body.removeChild(link);
+    
+          // Release the object URL
+          window.URL.revokeObjectURL(url);
+  
+          console.log("process succe pdf");
+        },
+        error: (error) => {
+          console.error('Error fetching bill:', error);
+        }
+      });
+    }
 }

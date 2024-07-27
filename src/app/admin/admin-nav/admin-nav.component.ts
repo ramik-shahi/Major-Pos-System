@@ -46,8 +46,11 @@ export class AdminNavComponent implements OnInit {
     }
     
     logout() {
-      // Your logout logic here
+      
       console.log('Logging out...');
+      sessionStorage.clear();
+      // Redirect to the login page or home
+      this.router.navigate(['/login']);
     }
     
 }

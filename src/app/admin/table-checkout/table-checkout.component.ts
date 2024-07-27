@@ -10,6 +10,7 @@ interface Order {
   total: number;
   image: string;
   menuid: string;
+  
 }
 
 @Component({
@@ -24,6 +25,8 @@ export class TableCheckoutCardComponent implements OnInit ,OnChanges {
   subTotal=0
   total=this.subTotal
   add:any
+  TABLEID:any
+  noOrder:any
 
   title = 'Checkout';
   constructor(
@@ -44,6 +47,7 @@ export class TableCheckoutCardComponent implements OnInit ,OnChanges {
 
 
   fetchOrders(tableId: string) {
+    this.TABLEID=tableId;
     console.log(`Fetching orders for table: ${tableId}`);
 
     this.orders = [];
@@ -57,8 +61,12 @@ export class TableCheckoutCardComponent implements OnInit ,OnChanges {
           this.subTotal = 0;
           this.total = 0;
           console.log('No orders found.');
+          this.noOrder='true'
+
           return;
         }
+
+        this.noOrder='false'
   
         // Extract unique menu_ids
         const menuIds = [...new Set(orders.map(order => order.menu_id))];
@@ -129,6 +137,6 @@ export class TableCheckoutCardComponent implements OnInit ,OnChanges {
   vat = 13;
   // total = this.subTotal 
   onSubmit() {
-    this.router.navigate(['/admin/payment'])
+    this.router.navigate(['/admin/payment/',this.TABLEID,this.total])
  }
 }

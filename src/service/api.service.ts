@@ -126,5 +126,9 @@ export class ApiService {
   createRes(data:any):Observable<any>{
     return this.http.post(`${this.apiUrl}restaurant/upload`,data)
   }
+
+  billGeneration(data:any):Observable<any>{
+    return this.http.post(`${this.apiUrl}bill/upload`,data)
+  }
   
 }

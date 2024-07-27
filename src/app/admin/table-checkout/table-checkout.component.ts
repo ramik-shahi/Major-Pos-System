@@ -47,6 +47,7 @@ export class TableCheckoutCardComponent implements OnInit ,OnChanges {
 
 
   fetchOrders(tableId: string) {
+    const defaultRate=50
     this.TABLEID=tableId;
     console.log(`Fetching orders for table: ${tableId}`);
 
@@ -95,7 +96,8 @@ export class TableCheckoutCardComponent implements OnInit ,OnChanges {
             this.orders = orders.map(order => ({
               item: order.item_name,
               qty: order.item_quantity,
-              rate: 50,
+              rate: order.item_price ?? defaultRate,
+            
               total: order.item_quantity * 50,
               image: menuImages[order.menu_id] || '',
               menuid: order.menu_id

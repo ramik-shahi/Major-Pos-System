@@ -16,6 +16,7 @@ interface SelectedProduct {
   restaurant_id:any;
   restaurant_name:any;
   order_date:any
+  item_price:any
 }
 
 interface Product {
@@ -125,7 +126,8 @@ export class MenuComponent implements OnInit {
         bill_id:null,
         restaurant_id:sessionStorage.getItem('restaurant_id')?.toString(),
         restaurant_name:sessionStorage.getItem('restaurant_name')?.toString(),
-        order_date:Date.now()
+        order_date:Date.now(),
+        item_price:product.price
 
       });
       console.log("select product log:"+product.selected);
@@ -162,7 +164,8 @@ export class MenuComponent implements OnInit {
         order_status: order.order_status,
         bill_id: order.bill_id,
         restaurant_id: order.restaurant_id,
-        restaurant_name: order.restaurant_name
+        restaurant_name: order.restaurant_name,
+        item_price:order.item_price
       }))
     };
     this.apiservice.postOrder(orderPayload).subscribe(res=>{

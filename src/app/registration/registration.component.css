@@ -1,0 +1,206 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: yellow;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    flex-direction: row;
+}
+
+.left-side, .right-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.left-side {
+    background-image: url('src/assets/login1.png'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.overlay h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+.overlay h2 {
+    font-size: 3em;
+    margin: 0;
+    color: #1961a4;
+}
+
+.right-side {
+    background-color: #f9f9f9;
+    background-image: url('src/assets/login_right_side_bg.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.login-box {
+    width: 70%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-box .logo {
+    text-align: left;
+    margin-bottom: 20px; /* Adjust as needed */
+}
+
+.login-box .logo img {
+    width: 200px; /* Increased size */
+    height: auto; /* Maintain aspect ratio */
+    mix-blend-mode: multiply;
+}
+
+.login-box h3 {
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.login-box p {
+    text-align: left;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.login-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-box label {
+    text-align: left;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.login-box input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+div .error {
+    color: red;
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.remember-forgot a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.login-box button {
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background-color: #0056b3;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-side, .right-side {
+        height: 63%;
+        width: 100%;
+    }
+
+    .login-box {
+        width: 90%;
+        max-width: 300px;
+    }
+
+    .overlay h1 {
+        font-size: 2em;
+    }
+
+    .overlay h2 {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .overlay h1 {
+        font-size: 1.5em;
+    }
+
+    .overlay h2 {
+        font-size: 2em;
+    }
+
+    .login-box {
+        width: 90%;
+        max-width: 250px;
+    }
+
+    .login-box .logo img {
+        width: 150px; /* Increased size for smaller screens */
+    }
+
+    .login-box h3, .login-box p {
+        text-align: center;
+    }
+
+    .login-box form {
+        width: 100%;
+    }
+
+    .remember-forgot {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .remember-forgot a {
+        margin-top: 10px;
+    }
+
+    .login-box button {
+        width: 100%;
+    }
+}

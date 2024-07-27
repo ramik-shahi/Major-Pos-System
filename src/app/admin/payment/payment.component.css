@@ -1,26 +1,39 @@
 .mat-mdc-radio-button ~ .mat-mdc-radio-button {
-    margin-left: 16px;
-  }
-  .wrapper{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .payment-method-item{
-    display: flex;
-  }
-  .payment-method-item.div{
-    margin-right: 10px;
-  }
-  .new-card{
-    margin-right: 10px;
-    padding: 12px
-  }
-  .btn{
-    margin-top: 12px;
-  }
-  .card-wrapper{
-    margin: 10px;
-    padding: 20px;
-  }
+  margin-left: 16px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.payment-method-item {
+  display: flex;
+}
+
+.payment-method-item.div {
+  margin-right: 10px;
+}
+
+.new-card {
+  margin-right: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn {
+  margin-top: 12px;
+  margin-left: 200px; /* Shift the button 30px to the right */
+  align-self: center; /* Center the button horizontally */
+}
+
+
+.card-wrapper {
+  margin: 10px;
+  padding: 20px;
+}
+

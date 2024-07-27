@@ -44,30 +44,11 @@ export class AdminNavComponent implements OnInit {
       return this.auth.getRole()==='admin'
 
     }
-
-    isAdminAndWaiter(){
-      if(this.auth.getRole()==='admin' ||this.auth.getRole()==='waiter'){
-        return true
-      }
-      return false
-
-    }
-
-    isAdminAndWaiterAndKitchen(){
-
-      if(this.auth.getRole()==='admin' ||this.auth.getRole()==='waiter' || this.auth.getRole()==='kitchen'){
-        return true
-      }
-      return false
-
+    
+    logout() {
+      // Your logout logic here
+      console.log('Logging out...');
     }
     
-    isAdminAndWaiterAndReception(){
-      if(this.auth.getRole()==='admin' ||this.auth.getRole()==='waiter' || this.auth.getRole()==='reception'){
-        return true
-      }
-      return false
-
-
-    }
 }
+
